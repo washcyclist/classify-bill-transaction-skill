@@ -368,28 +368,80 @@ Ask: "Ready to create journal entries in ERPNext for AUTO_POST and confirmed REV
 
 ### Step 8: Create Journal Entries
 
-For each approved transaction (AUTO_POST + confirmed REVIEW items), create a journal entry in ERPNext:
+For each approved transaction (AUTO_POST + confirmed REVIEW items), create a journal entry in ERPNext.
 
-Use Frappe MCP `create_document` tool:
+#### 8A: Duplicate Detection (CRITICAL)
+
+**Before creating any Journal Entry**, check if the transaction already exists:
+
+```
+list_documents(
+    doctype="Journal Entry",
+    filters="cheque_no:{transaction_id}",
+    fields="name,posting_date,total_debit,docstatus",
+    limit="1"
+)
+```
+
+Where `{transaction_id}` is the Bill.com base64 transaction ID (the `id` field from Bill.com).
+
+- **If results found**: SKIP this transaction - it already exists in ERPNext
+- **If no results**: Proceed with creating the Journal Entry
+
+**Why this matters**: The `cheque_no` field stores the unique Bill.com transaction ID. Without this check, the same transaction can be entered multiple times (this has happened before with 12+ duplicates).
+
+#### 8B: Using the Template (Recommended)
+
+Use `journal_entry_template.py` to generate consistent Journal Entry format:
+
+```python
+from journal_entry_template import create_journal_entry, create_journal_entry_from_classification
+
+# From classified transaction
+entry = create_journal_entry_from_classification(
+    transaction=billcom_transaction,
+    classification=classification_result,
+    company="WCLI"
+)
+
+# Or manually
+entry = create_journal_entry(
+    company="WCLI",
+    posting_date="2025-10-02",
+    transaction_id="VHJhbnNhY3Rpb246OWUz...",
+    transaction_date="2025-10-01",
+    merchant_name="DoorDash",
+    user_email="john@example.com",
+    amount=52.91,
+    expense_account="5216",
+    expense_account_name="Travel Expenses"
+)
+```
+
+#### 8C: Frappe API Call
+
+Use Frappe MCP `create_document` tool with the generated entry:
 
 ```
 create_document(
     doctype="Journal Entry",
     values={
-        "company": "[Company name]",
-        "posting_date": "[occurredTime date from transaction]",
-        "voucher_type": "Bank Entry",
-        "user_remark": "[Merchant Name] - [Date]",
+        "voucher_type": "Journal Entry",
+        "company": "Wash Cycle Laundry Inc.",
+        "posting_date": "2025-10-02",
+        "cheque_no": "[Bill.com base64 transaction ID]",
+        "cheque_date": "2025-10-01",
+        "user_remark": "Merchant: DoorDash | User: john@example.com",
         "accounts": [
             {
-                "account": "[Expense GL Account]",
-                "debit_in_account_currency": [amount],
-                "credit_in_account_currency": 0
+                "account": "2151 - Divvy Credit Card - WCLI",
+                "debit_in_account_currency": 0,
+                "credit_in_account_currency": 52.91
             },
             {
-                "account": "[Credit Card Liability Account - 2151-WCLI or 2151-WCLC]",
-                "debit_in_account_currency": 0,
-                "credit_in_account_currency": [amount]
+                "account": "5216 - Travel Expenses - WCLI",
+                "debit_in_account_currency": 52.91,
+                "credit_in_account_currency": 0
             }
         ]
     }
@@ -397,16 +449,25 @@ create_document(
 ```
 
 **Critical Fields**:
-- `posting_date`: Use the `occurredTime` date from Bill.com (when transaction cleared)
+- `voucher_type`: Always `"Journal Entry"` for credit card expenses
+- `posting_date`: Use `occurredTime` date from Bill.com (when transaction cleared)
+- `cheque_no`: Bill.com base64 transaction ID (for duplicate detection)
+- `cheque_date`: Transaction authorization date
+- `user_remark`: Format as `"Merchant: {name} | User: {email}"`
 - `company`: Must match the company selected in Step 1
-- `voucher_type`: Always "Bank Entry" for credit card transactions
-- `user_remark`: Format as "[Merchant Name] - [YYYY-MM-DD]"
 
 **Account Selection**:
-- Debit (expense side): The classified GL account from DMN or LLM
-- Credit (liability side): 
-  - WCLI: "2151 - Divvy Credit Card - WCLI"
-  - WCLC: "2151 - Divvy Credit Card - WCLC"
+- **Row 1 - Credit Card Liability (CREDIT)**:
+  - WCLI: `"2151 - Divvy Credit Card - WCLI"`
+  - WCLC: `"2151 - Divvy Credit Card - WCLC"`
+- **Row 2 - Expense Account (DEBIT)**:
+  - Format: `"{account_number} - {account_name} - {suffix}"`
+  - Example: `"5216 - Travel Expenses - WCLI"`
+
+**Refunds/Credits**:
+For refund transactions (`isCredit: true`), the template automatically reverses:
+- Debit the credit card (reduces liability)
+- Credit the expense account (reduces expense)
 
 Track successes and failures. Report any errors clearly.
 
@@ -514,8 +575,9 @@ Sync complete!
 - **classification_rules.jdm.json**: Compiled rules in GoRules JDM format (auto-generated)
 - **classify_transaction.py**: Python classifier script using ZEN engine
 - **convert_dmn_to_jdm.py**: Converts CSV rules to JDM format
+- **journal_entry_template.py**: Standardized Journal Entry template for ERPNext
 - **narrative_rules.md**: Narrative expense classification policy with MCC reference
-- **README.md**: Setup and usage instructions
+- **requirements.txt**: Python dependencies
 - **.venv/**: Python virtual environment with zen-engine
 
 ## Key MCP Tools Used

@@ -11,6 +11,13 @@ merchant_pattern,merchant_category,amount_min,amount_max,user_team,user_city,bil
 ,5541,,,Admin,,,,5800,Travel,AUTO_POST,Gas for admin/overhead travel
 ,5541,,,,,,,5110,Gas Tolls Fines,REVIEW,Gas station - unknown team - needs review
 
+# --- Automated Fuel Dispensers (MCC 5542) - Same as gas stations ---
+,5542,,,Delivery,,,LOCAL,5110,Gas Tolls Fines,AUTO_POST,Gas/fuel for delivery vehicles (MCC: automated fuel)
+,5542,,,Delivery,,,OUT_OF_STATE,5110,Gas Tolls Fines,REVIEW,Out-of-state fuel for delivery - verify purpose
+,5542,,,Production,,,LOCAL,5110,Gas Tolls Fines,AUTO_POST,Fuel for production vehicles
+,5542,,,Admin,,,,5800,Travel,AUTO_POST,Fuel for admin/overhead travel
+,5542,,,,,,,5110,Gas Tolls Fines,REVIEW,Automated fuel dispenser - unknown team - needs review
+
 # --- Parking (MCC 7523) ---
 ,7523,,,Delivery,,,LOCAL,5110,Gas Tolls Fines,AUTO_POST,Parking for delivery vehicles
 ,7523,,,Delivery,,,OUT_OF_STATE,5800,Travel,REVIEW,Out-of-state parking for delivery - verify
