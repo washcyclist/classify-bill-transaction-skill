@@ -1,0 +1,2 @@
+[console_scripts]
+zenengine=reader.__main__:main

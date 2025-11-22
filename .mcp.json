@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "bill-mcp": {
+      "type": "stdio",
+      "command": "/Users/gm-personal/frappe-mcp-tutorial/bill-mcp-server/.venv/bin/python",
+      "args": ["/Users/gm-personal/frappe-mcp-tutorial/bill-mcp-server/server.py"],
+      "cwd": "/Users/gm-personal/frappe-mcp-tutorial/bill-mcp-server"
+    },
+    "frappe-mcp": {
+      "type": "stdio",
+      "command": "/Users/gm-personal/frappe-mcp-tutorial/frappe-mcp-server/.venv/bin/python",
+      "args": ["-m", "src.main"],
+      "cwd": "/Users/gm-personal/frappe-mcp-tutorial/frappe-mcp-server"
+    }
+  }
+}

@@ -1,0 +1,4 @@
+# Bill.com to ERPNext Classification Skill
+# Install with: pip install -r requirements.txt
+
+zen-engine>=0.50.0

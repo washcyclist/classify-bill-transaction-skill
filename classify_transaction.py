@@ -1,0 +1,273 @@
+#!/usr/bin/env python3
+"""
+Transaction Classifier using GoRules ZEN Engine.
+
+This script classifies Bill.com transactions to ERPNext GL accounts using
+a deterministic decision table (JDM format) with discrepancy detection.
+
+Usage:
+    python classify_transaction.py --transaction '{"mcc": "5541", ...}' --employee '{"team": "Delivery"}' --billcom_budget "Maintenance - Trucks"
+
+Returns JSON with classification result, confidence, and discrepancy info.
+"""
+
+import argparse
+import json
+import re
+import sys
+from pathlib import Path
+from typing import Optional
+
+import zen
+
+
+# Budget name to account mapping for discrepancy detection
+BUDGET_TO_ACCOUNT = {
+    # Budgets with account numbers in name
+    "5206 - Legal Expenses": "5206",
+    "5207 - Advertising and Marketing": "5020",
+    "5209 - Office Rent": "5209",
+    "5216 - Travel Expenses": "5800",
+    "5233 - Subcontractor 1099 or UpWork": "5233",
+    "5236 - HR Consulting & Hiring": "5050",
+    "5238 - Insurance": "5238",
+    "5239 - Office Expenses": "5400",
+    "5242 - Telephone & Internet": "5700",
+    "5243 - Web Services": "5900",
+    "5245 - Professional business subscriptions": "5245",
+    "2121 - Owed to WCL Chelsea": "2121",
+    "2122 - Owed to WCL DC": "2122",
+    # Descriptive budgets
+    "Accounting Fees": "5232",
+    "Chemicals and Detergent": "5150",
+    "Coin Wash Fees": "5150",
+    "Delivery Cost - Gas Tolls Fines": "5110",
+    "Delivery Cost - Vehicle Lease and Mileage": "5120",
+    "Employee Benefits for Admin Staff": "5240",
+    "Equipment": "5200",
+    "Errors and Refunds to Customers": "5160",
+    "Linen Inventory": "5150",
+    "Maintenance - Bikes": "5200",
+    "Maintenance - Machines": "5200",
+    "Maintenance - Misc": "5200",
+    "Maintenance - Trucks": "5200",  # Often misclassified!
+    "Outsourcing Washing": "5130",
+    "Rent - Production and Storage": "5170",
+    "SNAFU": "5226",
+    "Software Dev": "5900",
+    "Subcontractor for Delivery": "5130",
+    "Wash Cost - Employee Food Drinks Perks": "5220",
+    "Wash Cost - Miscellaneous": "5150",
+    "Wash Cost - Plastic and Bags": "5150",
+    "Wash Cost - PPE and Uniforms": "5150",
+}
+
+
+def extract_account_from_budget(budget_name: str) -> Optional[str]:
+    """Extract GL account number from Bill.com budget name."""
+    if not budget_name:
+        return None
+
+    # Check mapping first
+    if budget_name in BUDGET_TO_ACCOUNT:
+        return BUDGET_TO_ACCOUNT[budget_name]
+
+    # Try to extract account number from beginning (e.g., "5216 - Travel")
+    match = re.match(r'^(\d{4})\s*-', budget_name)
+    if match:
+        return match.group(1)
+
+    return None
+
+
+def determine_confidence(result: dict, matched_by: str, has_discrepancy: bool) -> str:
+    """Determine confidence level based on match type and discrepancy."""
+    action = result.get('action', 'REVIEW')
+
+    if action == 'REJECT':
+        return 'REJECT'
+
+    # MCC matches are highest confidence
+    if matched_by == 'mcc':
+        return 'HIGH'
+    elif matched_by == 'merchant':
+        return 'MEDIUM' if has_discrepancy else 'HIGH'
+    else:
+        return 'LOW' if has_discrepancy else 'MEDIUM'
+
+
+def classify_transaction(
+    transaction: dict,
+    employee: dict,
+    billcom_budget: str,
+    jdm_path: str
+) -> dict:
+    """
+    Classify a transaction using the JDM rules engine.
+
+    Args:
+        transaction: Dict with keys: mcc, merchant, amount, etc.
+        employee: Dict with keys: team, designation, company
+        billcom_budget: The budget name assigned in Bill.com
+        jdm_path: Path to the JDM rules file
+
+    Returns:
+        Dict with classification result and metadata
+    """
+    # Load JDM rules
+    with open(jdm_path, 'r') as f:
+        jdm_content = f.read()
+
+    engine = zen.ZenEngine()
+    decision = engine.create_decision(jdm_content)
+
+    # Prepare input for decision engine
+    input_data = {
+        'mcc': transaction.get('merchantCategoryCode') or transaction.get('mcc', ''),
+        'merchant': (transaction.get('rawMerchantName') or transaction.get('merchantName') or transaction.get('merchant', '')).upper(),
+        'amount': float(transaction.get('amount', 0)),
+        'user_team': employee.get('team') or employee.get('department', ''),
+        'state_match': transaction.get('state_match', ''),
+    }
+
+    # Evaluate rules
+    result = decision.evaluate(input_data)
+    rule_result = result.get('result', {})
+
+    # Determine what matched
+    matched_by = 'none'
+    if rule_result.get('gl_account'):
+        notes = rule_result.get('notes', '').lower()
+        if 'mcc' in notes:
+            matched_by = 'mcc'
+        elif input_data['merchant']:
+            matched_by = 'merchant'
+        else:
+            matched_by = 'other'
+
+    # Detect discrepancy with Bill.com classification
+    billcom_account = extract_account_from_budget(billcom_budget)
+    our_account = rule_result.get('gl_account', '').strip('"')
+    has_discrepancy = False
+    discrepancy_reason = None
+
+    if billcom_account and our_account and billcom_account != our_account:
+        has_discrepancy = True
+        discrepancy_reason = f"Bill.com budget '{billcom_budget}' suggests account {billcom_account}, but {matched_by.upper()} indicates {our_account}"
+
+    # Determine confidence
+    confidence = determine_confidence(rule_result, matched_by, has_discrepancy)
+
+    # Build response
+    response = {
+        'gl_account': our_account or None,
+        'gl_account_name': rule_result.get('gl_account_name', '').strip('"') or None,
+        'action': rule_result.get('action', 'REVIEW').strip('"'),
+        'confidence': confidence,
+        'matched_by': matched_by,
+        'rule_notes': rule_result.get('notes', '').strip('"') or None,
+        'has_discrepancy': has_discrepancy,
+        'discrepancy': {
+            'billcom_budget': billcom_budget,
+            'billcom_account': billcom_account,
+            'our_account': our_account,
+            'reason': discrepancy_reason
+        } if has_discrepancy else None,
+        'input_used': input_data,
+        'performance': result.get('performance', '')
+    }
+
+    return response
+
+
+def classify_batch(transactions: list, jdm_path: str) -> list:
+    """
+    Classify multiple transactions efficiently.
+
+    Args:
+        transactions: List of dicts, each with 'transaction', 'employee', 'billcom_budget'
+        jdm_path: Path to the JDM rules file
+
+    Returns:
+        List of classification results
+    """
+    # Load JDM rules once
+    with open(jdm_path, 'r') as f:
+        jdm_content = f.read()
+
+    engine = zen.ZenEngine()
+    decision = engine.create_decision(jdm_content)
+
+    results = []
+    for item in transactions:
+        txn = item.get('transaction', {})
+        emp = item.get('employee', {})
+        budget = item.get('billcom_budget', '')
+
+        # Prepare input
+        input_data = {
+            'mcc': txn.get('merchantCategoryCode') or txn.get('mcc', ''),
+            'merchant': (txn.get('rawMerchantName') or txn.get('merchantName') or '').upper(),
+            'amount': float(txn.get('amount', 0)),
+            'user_team': emp.get('team') or emp.get('department', ''),
+            'state_match': txn.get('state_match', ''),
+        }
+
+        result = decision.evaluate(input_data)
+        rule_result = result.get('result', {})
+
+        # Quick classification
+        our_account = rule_result.get('gl_account', '').strip('"')
+        billcom_account = extract_account_from_budget(budget)
+        has_discrepancy = billcom_account and our_account and billcom_account != our_account
+
+        results.append({
+            'transaction_id': txn.get('uuid') or txn.get('id'),
+            'gl_account': our_account or None,
+            'action': rule_result.get('action', 'REVIEW').strip('"'),
+            'has_discrepancy': has_discrepancy,
+            'billcom_budget': budget,
+            'notes': rule_result.get('notes', '').strip('"') or None
+        })
+
+    return results
+
+
+def main():
+    parser = argparse.ArgumentParser(description='Classify Bill.com transactions')
+    parser.add_argument('--transaction', type=str, help='Transaction JSON')
+    parser.add_argument('--employee', type=str, default='{}', help='Employee JSON')
+    parser.add_argument('--billcom_budget', type=str, default='', help='Bill.com budget name')
+    parser.add_argument('--batch', type=str, help='Batch of transactions JSON (array)')
+    parser.add_argument('--jdm', type=str, help='Path to JDM rules file')
+
+    args = parser.parse_args()
+
+    # Determine JDM path
+    script_dir = Path(__file__).parent
+    jdm_path = args.jdm or str(script_dir / 'classification_rules.jdm.json')
+
+    if args.batch:
+        # Batch mode
+        transactions = json.loads(args.batch)
+        results = classify_batch(transactions, jdm_path)
+        print(json.dumps(results, indent=2))
+    elif args.transaction:
+        # Single transaction mode
+        transaction = json.loads(args.transaction)
+        employee = json.loads(args.employee)
+
+        result = classify_transaction(
+            transaction=transaction,
+            employee=employee,
+            billcom_budget=args.billcom_budget,
+            jdm_path=jdm_path
+        )
+        print(json.dumps(result, indent=2))
+    else:
+        parser.print_help()
+        sys.exit(1)
+
+
+if __name__ == '__main__':
+    main()

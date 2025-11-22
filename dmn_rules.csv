@@ -1,0 +1,192 @@
+merchant_pattern,merchant_category,amount_min,amount_max,user_team,user_city,billcom_category,state_match,gl_account,gl_account_name,action,notes
+# ============================================================================
+# MCC-FIRST RULES - These take priority over merchant name patterns
+# MCC codes are industry-standard and more reliable than user classifications
+# ============================================================================
+
+# --- Gas Stations (MCC 5541) ---
+,5541,,,Delivery,,,LOCAL,5110,Gas Tolls Fines,AUTO_POST,Gas for delivery vehicles (MCC: service station)
+,5541,,,Delivery,,,OUT_OF_STATE,5110,Gas Tolls Fines,REVIEW,Out-of-state gas for delivery - verify purpose
+,5541,,,Production,,,LOCAL,5110,Gas Tolls Fines,AUTO_POST,Gas for production vehicles
+,5541,,,Admin,,,,5800,Travel,AUTO_POST,Gas for admin/overhead travel
+,5541,,,,,,,5110,Gas Tolls Fines,REVIEW,Gas station - unknown team - needs review
+
+# --- Parking (MCC 7523) ---
+,7523,,,Delivery,,,LOCAL,5110,Gas Tolls Fines,AUTO_POST,Parking for delivery vehicles
+,7523,,,Delivery,,,OUT_OF_STATE,5800,Travel,REVIEW,Out-of-state parking for delivery - verify
+,7523,,,Admin,,,,5800,Travel,AUTO_POST,Parking for admin/overhead travel
+,7523,,,,,,,5110,Gas Tolls Fines,REVIEW,Parking - unknown team - needs review
+
+# --- Airlines (MCC 3000-3350 range, common ones) ---
+,3174,,,,,,,5800,Travel,AUTO_POST,Airline - JetBlue
+,3000,,,,,,,5800,Travel,AUTO_POST,Airline - United
+,3001,,,,,,,5800,Travel,AUTO_POST,Airline - American
+,3058,,,,,,,5800,Travel,AUTO_POST,Airline - Delta
+,3026,,,,,,,5800,Travel,AUTO_POST,Airline - Southwest
+*AIRLINE*,,,,,,,,5800,Travel,AUTO_POST,Airline travel (merchant pattern)
+*JETBLUE*,,,,,,,,5800,Travel,AUTO_POST,JetBlue flights
+*DELTA*,,,,,,,,5800,Travel,AUTO_POST,Delta flights
+*AMERICAN AIR*,,,,,,,,5800,Travel,AUTO_POST,American Airlines
+*SOUTHWEST*,,,,,,,,5800,Travel,AUTO_POST,Southwest Airlines
+*UNITED*,,,,,,,,5800,Travel,AUTO_POST,United Airlines
+
+# --- Passenger Railways (MCC 4112) ---
+,4112,,,,,,,5800,Travel,AUTO_POST,Train travel (Amtrak etc)
+*AMTRAK*,,,,,,,,5800,Travel,AUTO_POST,Amtrak train travel
+
+# --- Local Transit (MCC 4111) ---
+,4111,,,,,,,5800,Travel,AUTO_POST,Local transit (subway/bus)
+*MBTA*,,,,,,,,5800,Travel,AUTO_POST,Boston transit
+*SEPTA*,,,,,,,,5800,Travel,AUTO_POST,Philadelphia transit
+
+# --- Taxicabs/Rideshare (MCC 4121) ---
+,4121,,,Admin,,,,5800,Travel,AUTO_POST,Taxi/rideshare for admin travel
+,4121,,,Delivery,,,LOCAL,5130,Delivery Subcontractors,REVIEW,Rideshare for delivery - verify purpose
+,4121,,,,,,,5800,Travel,REVIEW,Taxi/rideshare - unknown team - needs review
+*UBER*,,,,,Admin,,,5800,Travel,AUTO_POST,Uber for admin travel
+*UBER*,,,,,Delivery,,,5130,Delivery Subcontractors,AUTO_POST,Uber for delivery
+*LYFT*,,,,,Admin,,,5800,Travel,AUTO_POST,Lyft for admin travel
+*LYFT*,,,,,Delivery,,,5130,Delivery Subcontractors,AUTO_POST,Lyft for delivery
+*CURB*,,,,,,,,5800,Travel,AUTO_POST,Curb taxi app
+
+# --- Hotels/Lodging (MCC 7011) ---
+,7011,,,,,,OUT_OF_STATE,5800,Travel,AUTO_POST,Hotel for out-of-state travel
+,7011,,,,,,LOCAL,5800,Travel,REVIEW,Local hotel - verify business purpose
+*MARRIOTT*,,,,,,,,5800,Travel,AUTO_POST,Marriott hotel
+*HILTON*,,,,,,,,5800,Travel,AUTO_POST,Hilton hotel
+*HYATT*,,,,,,,,5800,Travel,AUTO_POST,Hyatt hotel
+*HOTEL*,,,,,,,,5800,Travel,AUTO_POST,Hotel lodging
+
+# --- Car Rental (MCC 7512) ---
+,7512,,,Delivery,,,LOCAL,5120,Vehicle Leases Mileage,AUTO_POST,Local vehicle rental for delivery
+,7512,,,Admin,,,OUT_OF_STATE,5800,Travel,AUTO_POST,Out-of-state rental for admin travel
+,7512,,,,,,OUT_OF_STATE,5800,Travel,AUTO_POST,Out-of-state car rental - travel
+,7512,,,,,,LOCAL,5120,Vehicle Leases Mileage,REVIEW,Local car rental - verify if delivery or travel
+*HERTZ*,7512,,,,,,,5120,Vehicle Leases Mileage,REVIEW,Hertz rental - verify purpose
+*ENTERPRISE*,7512,,,,,,,5120,Vehicle Leases Mileage,REVIEW,Enterprise rental - verify purpose
+*BUDGET RENT*,,,,,,,,5120,Vehicle Leases Mileage,REVIEW,Budget rental - verify purpose
+
+# --- Computer Software/Services (MCC 5734, 7372, 7379) ---
+,5734,,,,,,,5900,Web Services,AUTO_POST,Computer software (MCC)
+,7372,,,,,,,5900,Web Services,AUTO_POST,Computer programming services (MCC)
+,7379,,,,,,,5900,Web Services,AUTO_POST,Computer services (MCC)
+*OPENAI*,,,,,,,,5900,Web Services,AUTO_POST,OpenAI/ChatGPT
+*SUPABASE*,,,,,,,,5900,Web Services,AUTO_POST,Supabase cloud service
+*GITHUB*,,,,,,,,5900,Web Services,AUTO_POST,GitHub
+*GOOGLE*CLOUD*,,,,,,,,5900,Web Services,AUTO_POST,Google Cloud
+*TWILIO*,,,,,,,,5900,Web Services,AUTO_POST,Twilio communications
+*ZOHO*,,,,,,,,5900,Web Services,AUTO_POST,Zoho services
+*CAUSAL*,,,,,,,,5900,Web Services,AUTO_POST,Causal analytics
+*AUGMENT*,,,,,,,,5900,Web Services,AUTO_POST,Augment Code
+*SLACK*,,,,,,,,5900,Web Services,AUTO_POST,Slack subscription
+*ZOOM*,,,,,,,,5900,Web Services,AUTO_POST,Zoom subscription
+*MICROSOFT*,,,,,,,,5900,Web Services,AUTO_POST,Microsoft services
+*LINKEDIN*,,,,,,,,5900,Web Services,AUTO_POST,LinkedIn services
+*LOB.COM*,,,,,,,,5020,Advertising Marketing,AUTO_POST,Lob.com direct mail API
+
+# --- Postal/Shipping (MCC 9402, 4215) ---
+,9402,,,,,,,5660,Shipping Supplies,AUTO_POST,Postal services (MCC)
+,4215,,,,,,,5660,Shipping Supplies,AUTO_POST,Courier services (MCC)
+*USPS*,,,,,,,,5660,Shipping Supplies,AUTO_POST,USPS postal services
+*UPS*,,,,,,,,5660,Shipping Supplies,AUTO_POST,UPS shipping
+*FEDEX*,,,,,,,,5660,Shipping Supplies,AUTO_POST,FedEx shipping
+
+# --- Real Estate/Office Space (MCC 6513) ---
+,6513,,,,,,,5209,Office Rent,AUTO_POST,Real estate/office space (MCC)
+*REGUS*,,,,,,,,5209,Office Rent,AUTO_POST,Regus coworking space
+*WEWORK*,,,,,,,,5209,Office Rent,AUTO_POST,WeWork coworking space
+
+# --- Dry Cleaners/Laundry (MCC 7211) ---
+,7211,,,,,,,5150,Coin Wash Fees,AUTO_POST,Laundry services (MCC: dry cleaners)
+*REVOLUTION LAUNDRY*,,,,,,,,5150,Coin Wash Fees,AUTO_POST,Revolution Laundry coin wash
+
+# --- Subscriptions/Direct Marketing (MCC 5968) ---
+,5968,,,,,,,5245,Professional business subscriptions,AUTO_POST,Subscription services (MCC)
+*HBR*,,,,,,,,5245,Professional business subscriptions,AUTO_POST,Harvard Business Review
+
+# --- Government Services (MCC 9399, 9211) ---
+,9399,,,,,,,5229,Business Taxes & Licenses,REVIEW,Government services - verify if tax/license or legal
+,9211,,,,,,,5229,Business Taxes & Licenses,AUTO_POST,Court costs/fines
+*DELAWARE CORP*,,,,,,,,5206,Legal Expenses,AUTO_POST,Delaware corporate filings
+*STATE OF*,,,,,,,,5229,Business Taxes & Licenses,REVIEW,State government - verify purpose
+
+# --- Restaurants/Food (MCC 5812, 5814) ---
+,5812,,,Production,,,LOCAL,5220,Employee Food,AUTO_POST,Restaurant - production team local meal
+,5812,,,Delivery,,,LOCAL,5220,Employee Food,AUTO_POST,Restaurant - delivery team local meal
+,5812,,,Admin,,,LOCAL,5220,Employee Food,REVIEW,Restaurant - admin local - verify business purpose
+,5812,,,,,,OUT_OF_STATE,5800,Travel,AUTO_POST,Restaurant during out-of-state travel
+,5814,,,Production,,,LOCAL,5220,Employee Food,AUTO_POST,Fast food - production team
+,5814,,,Delivery,,,LOCAL,5220,Employee Food,AUTO_POST,Fast food - delivery team
+
+# --- Grocery/Convenience (MCC 5411, 5499) ---
+,5411,,,Production,,,LOCAL,5220,Employee Food,AUTO_POST,Grocery - production team food/drinks
+,5411,,,Delivery,,,LOCAL,5220,Employee Food,AUTO_POST,Grocery - delivery team food/drinks
+,5411,,,,,,OUT_OF_STATE,5800,Travel,AUTO_POST,Grocery during travel
+,5411,,,,,,,5220,Employee Food,REVIEW,Grocery - unknown team - needs review
+,5499,,,Production,,,,5220,Employee Food,AUTO_POST,Convenience store - production snacks
+
+# --- Office Supplies (MCC 5111, 5943) ---
+,5111,,0,500,,,,,5400,Office Expenses,AUTO_POST,Office supplies under $500
+,5111,,500,2000,,,,,5400,Office Expenses,REVIEW,Office supplies $500-$2000 - verify not equipment
+,5111,,2000,,,,,,5400,Office Expenses,REVIEW,Large office supply purchase - verify not asset
+,5943,,,,,,,,,5400,Office Expenses,AUTO_POST,Stationery stores
+*STAPLES*,,0,500,,,,,5400,Office Expenses,AUTO_POST,Staples under $500
+*STAPLES*,,500,2000,,,,,5400,Office Expenses,REVIEW,Staples $500-$2000 - may be production supplies
+*STAPLES*,,2000,,,,,,ASSET,REJECT,Large Staples purchase - verify if asset
+*OFFICE DEPOT*,,,,,,,,5400,Office Expenses,AUTO_POST,Office Depot supplies
+
+# --- Charitable Organizations (MCC 8398) ---
+,8398,,,,,,,5020,Advertising Marketing,REVIEW,Charitable org - verify if sponsorship/advertising
+
+# ============================================================================
+# MERCHANT PATTERN RULES - Secondary to MCC rules
+# ============================================================================
+
+# --- Shipping/Packaging Supplies ---
+*ULINE*,,,,,,,,,5660,Shipping Supplies,AUTO_POST,Uline packaging supplies
+
+# --- Maintenance/Hardware ---
+*GRAINGER*,,,0,500,,,,,5200,Maintenance,AUTO_POST,Grainger small maintenance under $500
+*GRAINGER*,,,500,5000,,,,,5200,Maintenance,REVIEW,Grainger $500-$5000 - may be equipment
+*GRAINGER*,,,5000,,,,,,ASSET,REJECT,Large Grainger purchase - likely equipment/asset
+*HOME DEPOT*,,,0,150,,,,,5200,Maintenance,AUTO_POST,Home Depot small purchases
+*HOME DEPOT*,,,150,500,,,,,5200,Maintenance,REVIEW,Home Depot medium - verify not furniture/equipment
+*HOME DEPOT*,,,500,,,,,,5200,Maintenance,REVIEW,Home Depot large - may be asset
+*LOWES*,,,0,150,,,,,5200,Maintenance,AUTO_POST,Lowes small purchases
+*LOWES*,,,150,500,,,,,5200,Maintenance,REVIEW,Lowes medium - verify not furniture/equipment
+
+# --- Telecommunications ---
+*VERIZON*,,,,,,,,,5700,Telephone Internet,AUTO_POST,Verizon phone/internet
+*T-MOBILE*,,,,,,,,,5700,Telephone Internet,AUTO_POST,T-Mobile phone service
+*AT&T*,,,,,,,,,5700,Telephone Internet,AUTO_POST,AT&T phone/internet
+*COMCAST*,,,,,,,,,5700,Telephone Internet,AUTO_POST,Comcast internet service
+
+# --- Marketing/Advertising ---
+*MAILCHIMP*,,,,,,,,,5020,Advertising Marketing,AUTO_POST,Mailchimp email marketing
+*GOOGLE ADS*,,,,,,,,,5020,Advertising Marketing,AUTO_POST,Google advertising
+*META*ADS*,,,,,,,,,5020,Advertising Marketing,AUTO_POST,Meta/Facebook advertising
+*FACEBOOK*,,,,,,,,,5020,Advertising Marketing,AUTO_POST,Facebook advertising
+*GREATER PHILA HISPANIC*,,,,,,,,,5020,Advertising Marketing,AUTO_POST,Hispanic Chamber sponsorship
+
+# --- HR/Recruiting ---
+*INDEED*,,,,,,,,,5050,HR Consulting Hiring,AUTO_POST,Indeed job posting
+*LINKEDIN RECRUITER*,,,,,,,,,5050,HR Consulting Hiring,AUTO_POST,LinkedIn recruiting
+
+# --- Tolls ---
+*EZPASS*,,,,,,,,,5110,Gas Tolls Fines,AUTO_POST,EZPass tolls
+*E-ZPASS*,,,,,,,,,5110,Gas Tolls Fines,AUTO_POST,E-ZPass tolls
+*TOLL*,,,,,,,,,5110,Gas Tolls Fines,AUTO_POST,Toll charges
+
+# --- Amazon (context-dependent) ---
+*AMAZON*,,,,,,Office,,,5400,Office Expenses,AUTO_POST,Amazon office supplies
+*AMAZON*,,,,Production,,Wash*,,,5150,Wash Cost Misc,AUTO_POST,Amazon production supplies
+*AMAZON*,,,0,100,,,,,5400,Office Expenses,REVIEW,Amazon under $100 - verify category
+*AMAZON*,,,100,500,,,,,5400,Office Expenses,REVIEW,Amazon $100-$500 - needs classification
+*AMAZON*,,,500,,,,,,5400,Office Expenses,REVIEW,Amazon over $500 - verify not asset
+
+# ============================================================================
+# CATCH-ALL AND SPECIAL CASES
+# ============================================================================
+
+# --- Large purchases - potential assets ---
+,,,5000,,,,,,,ASSET,REJECT,Large purchase over $5000 - potential asset - manual review required
