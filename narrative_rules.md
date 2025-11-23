@@ -9,14 +9,14 @@ When classifying transactions, prioritize MCC codes over Bill.com budget names. 
 ### Transportation & Travel MCCs
 | MCC | Description | GL Account | Notes |
 |-----|-------------|------------|-------|
-| 3000-3350 | Airlines | 5800 Travel | All airline MCCs map to travel |
-| 4111 | Local transit (subway, bus) | 5800 Travel | MBTA, SEPTA, etc. |
-| 4112 | Passenger railways | 5800 Travel | Amtrak |
-| 4121 | Taxicabs/rideshare | 5800 Travel (Admin) or 5130 Delivery Subcontractors | Context-dependent |
-| 5541 | Service stations (gas) | 5110 Gas Tolls Fines (Delivery) or 5800 Travel (Admin) | NOT maintenance! |
-| 7011 | Hotels/lodging | 5800 Travel | |
-| 7512 | Car rental | 5120 Vehicle Leases (Delivery) or 5800 Travel | Context-dependent |
-| 7523 | Parking lots | 5110 Gas Tolls Fines (Delivery) or 5800 Travel | NOT maintenance! |
+| 3000-3350 | Airlines | 5216 Travel Expenses | All airline MCCs map to travel |
+| 4111 | Local transit (subway, bus) | 5216 Travel Expenses | MBTA, SEPTA, etc. |
+| 4112 | Passenger railways | 5216 Travel Expenses | Amtrak |
+| 4121 | Taxicabs/rideshare | 5216 Travel Expenses (Admin) or Subcontractor for Delivery | Context-dependent |
+| 5541 | Service stations (gas) | Gas and Tolls (Delivery) or 5216 Travel Expenses (Admin) | NOT maintenance! |
+| 7011 | Hotels/lodging | 5216 Travel Expenses | |
+| 7512 | Car rental | Vehicle Lease and Mileage (Delivery) or 5216 Travel Expenses | Context-dependent |
+| 7523 | Parking lots | Gas and Tolls (Delivery) or 5216 Travel Expenses | NOT maintenance! |
 
 ### Software & Technology MCCs
 | MCC | Description | GL Account | Notes |

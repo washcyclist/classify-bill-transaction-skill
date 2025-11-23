@@ -22,44 +22,88 @@ import zen
 
 
 # Budget name to account mapping for discrepancy detection
+# NOTE: For COGS accounts without numbers, we use the account name as the identifier
+# The journal_entry_template.py handles resolving these to full ERPNext account names
 BUDGET_TO_ACCOUNT = {
-    # Budgets with account numbers in name
+    # Overhead accounts (have account numbers)
     "5206 - Legal Expenses": "5206",
-    "5207 - Advertising and Marketing": "5020",
+    "5207 - Advertising and Marketing": "5207",
     "5209 - Office Rent": "5209",
-    "5216 - Travel Expenses": "5800",
+    "5210 - Postal Expenses": "5210",
+    "5211 - Donations": "5211",
+    "5216 - Travel Expenses": "5216",
+    "5223 - Bank Fees and Charges": "5223",
+    "5229 - Business Taxes & Licenses": "5229",
+    "5231 - Computer Equipment": "5231",
+    "5232 - Accounting Fees": "5232",
     "5233 - Subcontractor 1099 or UpWork": "5233",
-    "5236 - HR Consulting & Hiring": "5050",
+    "5236 - HR Consulting & Hiring": "5236",
+    "5237 - Employee Benefits for Admin Staff": "5237",
     "5238 - Insurance": "5238",
-    "5239 - Office Expenses": "5400",
-    "5242 - Telephone & Internet": "5700",
-    "5243 - Web Services": "5900",
+    "5239 - Office Expenses": "5239",
+    "5240 - Payroll SG&A": "5240",
+    "5242 - Telephone & Internet": "5242",
+    "5243 - Web Services": "5243",
+    "5244 - Consulting": "5244",
     "5245 - Professional business subscriptions": "5245",
+    "5246 - Merchant Card Services": "5246",
+    "5247 - Payroll Fees": "5247",
+    "5251 - Meals and Entertainment": "5251",
+    "5252 - Training and Professional Development": "5252",
     "2121 - Owed to WCL Chelsea": "2121",
     "2122 - Owed to WCL DC": "2122",
-    # Descriptive budgets
-    "Accounting Fees": "5232",
-    "Chemicals and Detergent": "5150",
-    "Coin Wash Fees": "5150",
-    "Delivery Cost - Gas Tolls Fines": "5110",
-    "Delivery Cost - Vehicle Lease and Mileage": "5120",
-    "Employee Benefits for Admin Staff": "5240",
-    "Equipment": "5200",
-    "Errors and Refunds to Customers": "5160",
-    "Linen Inventory": "5150",
-    "Maintenance - Bikes": "5200",
-    "Maintenance - Machines": "5200",
-    "Maintenance - Misc": "5200",
-    "Maintenance - Trucks": "5200",  # Often misclassified!
-    "Outsourcing Washing": "5130",
-    "Rent - Production and Storage": "5170",
-    "SNAFU": "5226",
-    "Software Dev": "5900",
-    "Subcontractor for Delivery": "5130",
-    "Wash Cost - Employee Food Drinks Perks": "5220",
-    "Wash Cost - Miscellaneous": "5150",
-    "Wash Cost - Plastic and Bags": "5150",
-    "Wash Cost - PPE and Uniforms": "5150",
+
+    # COGS accounts (use account names, no numbers)
+    # Delivery Cost
+    "Delivery Cost - Gas Tolls Fines": "Gas and Tolls",
+    "Gas and Tolls": "Gas and Tolls",
+    "Delivery Cost - Vehicle Lease and Mileage": "Vehicle Lease and Mileage",
+    "Vehicle Lease and Mileage": "Vehicle Lease and Mileage",
+    "Routine Maintenance on Trucks": "Routine Maintenance on Trucks",
+    "Bike Maintenance": "Bike Maintenance",
+    "Subcontractor for Delivery": "Subcontractor for Delivery",
+
+    # Production / Consumables
+    "Chemicals and Detergent": "Chemicals and Detergent",
+    "Coin Wash Fees": "Coin Wash Fees",
+    "Linen Inventory": "Linen Inventory",
+    "Plastic and Bags": "Plastic and Bags",
+    "PPE and Safety Supplies": "PPE and Safety Supplies",
+    "Consumables for Equipment": "Consumables for Equipment",
+    "Break Room and Janitorial Supplies": "Break Room and Janitorial Supplies",
+    "Rent - Production and Storage": "Rent - Production and Storage",
+    "Outsourcing Washing": "Outsourcing Washing",
+    "Intra-Party Subcontractors": "Intra-Party Subcontractors",
+
+    # Maintenance (split from old 5200)
+    "Maintenance - Bikes": "Bike Maintenance",
+    "Maintenance - Machines": "Plant Equipment - Components for Repairs",
+    "Maintenance - Misc": "Building Maintenance",
+    "Maintenance - Trucks": "Routine Maintenance on Trucks",  # Often misclassified as gas!
+    "Plant Equipment - Components for Repairs": "Plant Equipment - Components for Repairs",
+    "Plant Equipment - Third Party Service": "Plant Equipment - Third Party Service",
+    "Building Maintenance": "Building Maintenance",
+    "Tools - Expensed": "Tools - Expensed",
+
+    # Staff
+    "Employee Food and Perks": "Employee Food and Perks",
+    "Wash Cost - Employee Food Drinks Perks": "Employee Food and Perks",
+    "Employee Uniforms": "Employee Uniforms",
+    "Employee Benefits for Production Staff": "Employee Benefits for Production Staff",
+
+    # Mistakes
+    "SNAFU": "SNAFU",
+    "Customer Credits for Service Errors": "Customer Credits for Service Errors",
+    "Tickets and Fines": "Tickets and Fines",
+    "Vehicle Damage Claims and Repairs": "Vehicle Damage Claims and Repairs",
+    "Errors and Refunds to Customers": "Customer Credits for Service Errors",
+
+    # Legacy mappings (old budget names -> new accounts)
+    "Wash Cost - Miscellaneous": "Break Room and Janitorial Supplies",
+    "Wash Cost - Plastic and Bags": "Plastic and Bags",
+    "Wash Cost - PPE and Uniforms": "PPE and Safety Supplies",
+    "Equipment": "Plant Equipment - Components for Repairs",
+    "Software Dev": "5243",
 }
 
 

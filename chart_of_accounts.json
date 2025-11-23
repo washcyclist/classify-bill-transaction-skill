@@ -1,0 +1,553 @@
+{
+  "metadata": {
+    "generated_at": "2025-11-22",
+    "source": "ERPNext Account DocType",
+    "version": "2.0",
+    "notes": "Synced from ERPNext. Many COGS accounts use descriptive names without account numbers."
+  },
+  "companies": {
+    "WCLI": {
+      "company_name": "Wash Cycle Laundry Inc.",
+      "credit_card_account": "2151 - Divvy Credit Card - WCLI",
+      "account_suffix": "WCLI"
+    },
+    "WCLC": {
+      "company_name": "WCL Chelsea LLC",
+      "credit_card_account": "2151 - Divvy Credit Card - WCLC",
+      "account_suffix": "WCLC"
+    }
+  },
+  "accounts": {
+    "overhead": [
+      {
+        "account_number": "5206",
+        "account_name": "Legal Expenses",
+        "full_name_wcli": "5206 - Legal Expenses - WCLI",
+        "full_name_wclc": "5206 - Legal Expenses - WCLC",
+        "category": "Non-Staff Overhead",
+        "description": "Fees paid to attorneys, law firms, and legal service providers. Includes contract review, corporate filings, litigation costs, trademark/patent filings, and legal consultations. Does NOT include HR-related legal matters (use HR Consulting) or regulatory compliance fees (use Business Taxes & Licenses)."
+      },
+      {
+        "account_number": "5207",
+        "account_name": "Advertising and Marketing",
+        "full_name_wcli": "5207 - Advertising and Marketing - WCLI",
+        "full_name_wclc": "5207 - Advertising and Marketing - WCLC",
+        "category": "Non-Staff Overhead",
+        "description": "Promotional spending to attract customers. Includes digital ads (Google, Meta, LinkedIn), print advertising, trade show booths, promotional materials, branded merchandise, sponsorships, and marketing agency fees. Does NOT include website hosting (use Web Services) or sales commissions (use Commission on Sales)."
+      },
+      {
+        "account_number": "5209",
+        "account_name": "Office Rent",
+        "full_name_wcli": "5209 - Office Rent - WCLI",
+        "full_name_wclc": "5209 - Office Rent - WCLC",
+        "category": "Non-Staff Overhead",
+        "description": "Rent payments for administrative office space only. Does NOT include production facility rent, warehouse rent, or storage space (use Rent - Production and Storage for those). Includes office lease payments, co-working space fees, and executive suite rentals."
+      },
+      {
+        "account_number": "5210",
+        "account_name": "Postal Expenses",
+        "full_name_wcli": "5210 - Postal Expenses - WCLI",
+        "full_name_wclc": "5210 - Postal Expenses - WCLC",
+        "category": "Non-Staff Overhead",
+        "description": "Shipping and mailing costs for administrative purposes. Includes USPS postage, FedEx/UPS shipments for documents, certified mail, PO box fees, and courier services. Does NOT include delivery of customer goods (use Delivery Cost accounts) or shipping supplies (use Office Expenses)."
+      },
+      {
+        "account_number": "5211",
+        "account_name": "Donations",
+        "full_name_wcli": "5211 - Donations - WCLI",
+        "full_name_wclc": "5211 - Donations - WCLC",
+        "category": "Non-Staff Overhead",
+        "description": "Charitable contributions and donations to nonprofits. Includes cash donations, sponsorships of charitable events, and in-kind donations. Does NOT include political contributions (not deductible) or marketing sponsorships where company receives promotional benefit (use Advertising and Marketing)."
+      },
+      {
+        "account_number": "5216",
+        "account_name": "Travel Expenses",
+        "full_name_wcli": "5216 - Travel Expenses - WCLI",
+        "full_name_wclc": "5216 - Travel Expenses - WCLC",
+        "category": "Non-Staff Overhead",
+        "description": "Business travel costs for employees. Includes airfare, hotels, rental cars, rideshare (Uber/Lyft), parking, train tickets, and per diem meals while traveling. Does NOT include local commuting, delivery driver fuel (use Gas and Tolls), or client entertainment (use Advertising and Marketing)."
+      },
+      {
+        "account_number": "5223",
+        "account_name": "Bank Fees and Charges",
+        "full_name_wcli": "5223 - Bank Fees and Charges - WCLI",
+        "full_name_wclc": "5223 - Bank Fees and Charges - WCLC",
+        "category": "Non-Staff Overhead",
+        "description": "Fees charged by financial institutions. Includes monthly account fees, wire transfer fees, ACH fees, NSF charges, and lockbox fees. Does NOT include merchant processing fees or credit card transaction fees (use Merchant Card Services), interest expense, or loan origination fees."
+      },
+      {
+        "account_number": "5224",
+        "account_name": "Bad Debt",
+        "full_name_wcli": "5224 - Bad Debt - WCLI",
+        "full_name_wclc": "5224 - Bad Debt - WCLC",
+        "category": "Indirect Expenses",
+        "description": "Uncollectible accounts receivable written off. Includes customer invoices deemed uncollectible after collection efforts fail. Does NOT include discounts given to customers, credit memos, or billing adjustments."
+      },
+      {
+        "account_number": "5226",
+        "account_name": "Other Expenses",
+        "full_name_wcli": "5226 - Other Expenses - WCLI",
+        "full_name_wclc": "5226 - Other Expenses - WCLC",
+        "category": "Indirect Expenses",
+        "description": "Miscellaneous indirect expenses that don't fit other overhead categories. Use sparingly for one-time or unusual items. If an expense recurs regularly, consider creating a dedicated account. Does NOT include operational mistakes (use SNAFU) or unclassified COGS items."
+      },
+      {
+        "account_number": "5229",
+        "account_name": "Business Taxes & Licenses",
+        "full_name_wcli": "5229 - Business Taxes & Licenses - WCLI",
+        "full_name_wclc": "5229 - Business Taxes & Licenses - WCLC",
+        "category": "Non-Staff Overhead",
+        "description": "Government-required taxes, licenses, and permits to operate the business. Includes business license renewals, professional certifications, industry permits, franchise taxes, property taxes, and regulatory filing fees. Does NOT include income taxes or payroll taxes (use Payroll Taxes accounts)."
+      },
+      {
+        "account_number": "5231",
+        "account_name": "Computer Equipment",
+        "full_name_wcli": "5231 - Computer Equipment - WCLI",
+        "full_name_wclc": "5231 - Computer Equipment - WCLC",
+        "category": "Non-Staff Overhead",
+        "description": "Computer hardware and peripherals under the capitalization threshold. Includes laptops, monitors, keyboards, mice, printers, networking equipment, and accessories. Does NOT include software subscriptions (use Web Services) or IT consulting services (use separate consulting account)."
+      },
+      {
+        "account_number": "5232",
+        "account_name": "Accounting Fees",
+        "full_name_wcli": "5232 - Accounting Fees - WCLI",
+        "full_name_wclc": "5232 - Accounting Fees - WCLC",
+        "category": "Non-Staff Overhead",
+        "description": "Fees paid to external accountants and bookkeepers. Includes CPA services, tax preparation, audit fees, bookkeeping services, and financial consulting. Does NOT include accounting software subscriptions (use Web Services) or internal payroll costs (use Payroll accounts)."
+      },
+      {
+        "account_number": "5233",
+        "account_name": "Subcontractor 1099 or UpWork",
+        "full_name_wcli": "5233 - Subcontractor 1099 or UpWork - WCLI",
+        "full_name_wclc": "5233 - Subcontractor 1099 or UpWork - WCLC",
+        "category": "Overhead Personnel",
+        "description": "Payments to independent contractors for administrative/overhead work. Includes freelancers, consultants, and UpWork contractors for non-production tasks like design, writing, or IT support. Does NOT include subcontractors for laundry operations (use Operations Outsourcing) or delivery (use Subcontractor for Delivery)."
+      },
+      {
+        "account_number": "5236",
+        "account_name": "HR Consulting & Hiring",
+        "full_name_wcli": "5236 - HR Consulting & Hiring - WCLI",
+        "full_name_wclc": "5236 - HR Consulting & Hiring - WCLC",
+        "category": "Non-Staff Overhead",
+        "description": "Costs related to human resources and recruitment. Includes recruiting agency fees, job board postings (Indeed, LinkedIn), background checks, drug testing, HR consultants, and employee handbook development. Does NOT include payroll processing fees or employee benefits."
+      },
+      {
+        "account_number": "5237",
+        "account_name": "Employee Benefits for Admin Staff",
+        "full_name_wcli": "5237 - Employee Benefits for Admin Staff - WCLI",
+        "full_name_wclc": "5237 - Employee Benefits for Admin Staff - WCLC",
+        "category": "Overhead Personnel",
+        "description": "Benefits provided to administrative and overhead employees. Includes health insurance premiums, 401(k) contributions, life insurance, disability insurance, and other fringe benefits for non-production staff. Does NOT include direct labor benefits or payroll taxes (use Payroll Taxes accounts)."
+      },
+      {
+        "account_number": "5238",
+        "account_name": "Insurance",
+        "full_name_wcli": "5238 - Insurance - WCLI",
+        "full_name_wclc": "5238 - Insurance - WCLC",
+        "category": "Non-Staff Overhead",
+        "description": "Business insurance premiums across all lines of coverage. Includes general liability, professional liability (E&O), directors & officers (D&O), cyber liability, umbrella policies, property insurance, vehicle insurance, and workers compensation. Does NOT include employee health insurance (use Employee Benefits accounts)."
+      },
+      {
+        "account_number": "5239",
+        "account_name": "Office Expenses",
+        "full_name_wcli": "5239 - Office Expenses - WCLI",
+        "full_name_wclc": "5239 - Office Expenses - WCLC",
+        "category": "Non-Staff Overhead",
+        "description": "General office supplies and small equipment. Includes paper, pens, printer ink/toner, folders, binders, desk accessories, and furniture under capitalization threshold. Does NOT include computer equipment (use Computer Equipment), postage (use Postal Expenses), breakroom supplies, janitorial/cleaning supplies, or PPE (use PPE and Safety Supplies)."
+      },
+      {
+        "account_number": "5240",
+        "account_name": "Payroll SG&A",
+        "full_name_wcli": "5240 - Payroll SG&A - WCLI",
+        "full_name_wclc": "5240 - Payroll SG&A - WCLC",
+        "category": "Overhead Personnel",
+        "description": "Gross wages for administrative and overhead employees. Includes salaries and wages for office staff, management, accounting, sales, and other non-production roles. Does NOT include production workers (use Payroll Gross accounts) or contractor payments (use Subcontractor 1099 or UpWork)."
+      },
+      {
+        "account_number": "5241",
+        "account_name": "Payroll Taxes - SG&A",
+        "full_name_wcli": "5241 - Payroll Taxes - SG&A - WCLI",
+        "full_name_wclc": "5241 - Payroll Taxes - SG&A - WCLC",
+        "category": "Overhead Personnel",
+        "description": "Employer payroll taxes for administrative and overhead employees. Includes employer portion of FICA (Social Security and Medicare), FUTA, SUTA, and other employment taxes for office and management staff. Does NOT include employee withholdings or workers compensation insurance."
+      },
+      {
+        "account_number": "5242",
+        "account_name": "Telephone & Internet",
+        "full_name_wcli": "5242 - Telephone & Internet - WCLI",
+        "full_name_wclc": "5242 - Telephone & Internet - WCLC",
+        "category": "Non-Staff Overhead",
+        "description": "Communication service costs for the business. Includes landline phone service, mobile phone plans, internet service, VoIP services, and conference call subscriptions. Does NOT include software subscriptions like Slack or Zoom (use Web Services) or equipment purchases (use Computer Equipment)."
+      },
+      {
+        "account_number": "5243",
+        "account_name": "Web Services",
+        "full_name_wcli": "5243 - Web Services - WCLI",
+        "full_name_wclc": "5243 - Web Services - WCLC",
+        "category": "Non-Staff Overhead",
+        "description": "Software subscriptions and cloud-based services. Includes SaaS subscriptions (Slack, Zoom, Microsoft 365, QuickBooks), web hosting, domain registrations, cloud storage, and online tools. Does NOT include internet connectivity (use Telephone & Internet) or computer hardware (use Computer Equipment)."
+      },
+      {
+        "account_number": "5244",
+        "account_name": "Consulting",
+        "full_name_wcli": "5244 - Consulting - WCLI",
+        "full_name_wclc": "5244 - Consulting - WCLC",
+        "category": "Non-Staff Overhead",
+        "description": "Fees for external business consultants and advisors. Includes management consultants, IT consultants, operations consultants, and other professional advisors. Does NOT include accounting (use Accounting Fees), legal (use Legal Expenses), or HR consulting (use HR Consulting & Hiring)."
+      },
+      {
+        "account_number": "5245",
+        "account_name": "Professional business subscriptions",
+        "full_name_wcli": "5245 - Professional business subscriptions - WCLI",
+        "full_name_wclc": "5245 - Professional business subscriptions - WCLC",
+        "category": "Non-Staff Overhead",
+        "description": "Memberships and subscriptions to professional organizations and industry resources. Includes trade association dues, industry publications, professional memberships (TRSA, chambers of commerce), and business research services. Does NOT include software subscriptions (use Web Services)."
+      },
+      {
+        "account_number": "5246",
+        "account_name": "Merchant Card Services",
+        "full_name_wcli": "5246 - Merchant Card Services - WCLI",
+        "full_name_wclc": "5246 - Merchant Card Services - WCLC",
+        "category": "Non-Staff Overhead",
+        "description": "Fees for processing customer credit and debit card payments. Includes payment processor fees (Stripe, Square), credit card transaction fees, and merchant account charges. Does NOT include bank account fees (use Bank Fees and Charges) or point-of-sale hardware (use Computer Equipment)."
+      },
+      {
+        "account_number": "5247",
+        "account_name": "Payroll Fees",
+        "full_name_wcli": "5247 - Payroll Fees - WCLI",
+        "full_name_wclc": "5247 - Payroll Fees - WCLC",
+        "category": "Non-Staff Overhead",
+        "description": "Fees paid to payroll service providers. Includes payroll processing fees (Everee, Trinet, ADP, Gusto), direct deposit fees, and payroll tax filing fees. Does NOT include actual payroll taxes (use Payroll Taxes accounts) or HR services (use HR Consulting & Hiring)."
+      },
+      {
+        "account_number": "5248",
+        "account_name": "Interest Expense",
+        "full_name_wcli": "5248 - Interest Expense - WCLI",
+        "full_name_wclc": "5248 - Interest Expense - WCLC",
+        "category": "Indirect Expenses",
+        "description": "Interest paid on business debt and financing. Includes interest on loans, lines of credit, equipment financing, and credit cards. Does NOT include principal payments, bank fees (use Bank Fees and Charges), or late payment penalties."
+      },
+      {
+        "account_number": "5251",
+        "account_name": "Meals and Entertainment",
+        "full_name_wcli": "5251 - Meals and Entertainment - WCLI",
+        "full_name_wclc": "5251 - Meals and Entertainment - WCLC",
+        "category": "Non-Staff Overhead",
+        "description": "Business meals and entertainment expenses. Includes client meals, team lunches, business dinners, and entertainment for business purposes. Does NOT include employee breakroom supplies (use Break Room and Janitorial Supplies) or travel meals (use Travel Expenses)."
+      },
+      {
+        "account_number": "5252",
+        "account_name": "Training and Professional Development",
+        "full_name_wcli": "5252 - Training and Professional Development - WCLI",
+        "full_name_wclc": "5252 - Training and Professional Development - WCLC",
+        "category": "Non-Staff Overhead",
+        "description": "Employee training and education expenses. Includes seminars, workshops, online courses, certifications, conference registrations, and training materials. Does NOT include college tuition reimbursement (use Employee Benefits) or trade association dues (use Professional business subscriptions)."
+      },
+      {
+        "account_number": "5263",
+        "account_name": "Professional Services",
+        "full_name_wcli": "5263 - Professional Services - WCLI",
+        "full_name_wclc": "5263 - Professional Services - WCLC",
+        "category": "Non-Staff Overhead",
+        "description": "General professional services not covered by specific accounts. Includes specialized consultants, technical advisors, and professional service providers. Use sparingly - prefer specific accounts like Legal Expenses, Accounting Fees, or Consulting when applicable."
+      }
+    ],
+    "cogs_delivery": [
+      {
+        "account_number": null,
+        "account_name": "Gas and Tolls",
+        "full_name_wcli": "Gas and Tolls - WCLI",
+        "full_name_wclc": "Gas and Tolls - WCLC",
+        "category": "Delivery Cost",
+        "description": "Fuel and toll costs for delivery vehicles. Includes gasoline, diesel, and highway/bridge tolls for delivery trucks. Does NOT include natural gas for the plant (use Natural Gas), vehicle maintenance (use Routine Maintenance on Trucks), or employee mileage reimbursements (use Travel Expenses)."
+      },
+      {
+        "account_number": null,
+        "account_name": "Vehicle Lease and Mileage",
+        "full_name_wcli": "Vehicle Lease and Mileage - WCLI",
+        "full_name_wclc": "Vehicle Lease and Mileage - WCLC",
+        "category": "Delivery Cost",
+        "description": "Lease payments and mileage charges for delivery vehicles. Includes monthly truck lease payments, per-mile overage charges, and fleet rental fees. Does NOT include fuel (use Gas and Tolls), maintenance (use Routine Maintenance on Trucks), or insurance (use Insurance)."
+      },
+      {
+        "account_number": null,
+        "account_name": "Routine Maintenance on Trucks",
+        "full_name_wcli": "Routine Maintenance on Trucks - WCLI",
+        "full_name_wclc": "Routine Maintenance on Trucks - WCLC",
+        "category": "Delivery Cost",
+        "description": "Regular maintenance and repairs for delivery vehicles. Includes oil changes, tire replacements, brake service, inspections, and minor repairs. Does NOT include fuel (use Gas and Tolls), major accident repairs (use Vehicle Damage Claims and Repairs), or vehicle lease payments (use Vehicle Lease and Mileage)."
+      },
+      {
+        "account_number": null,
+        "account_name": "Bike Maintenance",
+        "full_name_wcli": "Bike Maintenance - WCLI",
+        "full_name_wclc": "Bike Maintenance - WCLC",
+        "category": "Delivery Cost",
+        "description": "Maintenance and repairs for delivery bicycles and e-bikes. Includes tire replacements, brake repairs, chain maintenance, and tune-ups for bikes used in delivery operations. Does NOT include truck maintenance (use Routine Maintenance on Trucks) or bike purchases over capitalization threshold."
+      },
+      {
+        "account_number": null,
+        "account_name": "Subcontractor for Delivery",
+        "full_name_wcli": "Subcontractor for Delivery - WCLI",
+        "full_name_wclc": "Subcontractor for Delivery - WCLC",
+        "category": "Operations Outsourcing",
+        "description": "Payments to third-party contractors for delivery services. Includes courier services, overflow delivery help, and contracted drivers. Does NOT include employee driver payroll (use Payroll Gross - Delivery), outsourced washing (use Outsourcing Washing), or administrative contractors (use Subcontractor 1099 or UpWork)."
+      }
+    ],
+    "cogs_production": [
+      {
+        "account_number": null,
+        "account_name": "Chemicals and Detergent",
+        "full_name_wcli": "Chemicals and Detergent - WCLI",
+        "full_name_wclc": "Chemicals and Detergent - WCLC",
+        "category": "Consumable Supplies",
+        "description": "Laundry chemicals and cleaning agents used in production. Includes detergents, softeners, bleach, stain removers, sour, and other wash chemicals. Does NOT include janitorial cleaning supplies (use Break Room and Janitorial Supplies) or equipment lubricants (use Plant Equipment - Components for Repairs)."
+      },
+      {
+        "account_number": null,
+        "account_name": "Coin Wash Fees",
+        "full_name_wcli": "Coin Wash Fees - WCLI",
+        "full_name_wclc": "Coin Wash Fees - WCLC",
+        "category": "Cost of Goods Sold",
+        "description": "Fees paid to use coin-operated laundry equipment at external facilities. Includes laundromat fees for overflow or specialty items. Does NOT include outsourced washing services (use Outsourcing Washing) or equipment for owned coin-op machines."
+      },
+      {
+        "account_number": null,
+        "account_name": "Linen Inventory",
+        "full_name_wcli": "Linen Inventory - WCLI",
+        "full_name_wclc": "Linen Inventory - WCLC",
+        "category": "Consumable Supplies",
+        "description": "Purchase of linens held as rental inventory. Includes sheets, towels, tablecloths, napkins, and other textiles purchased to expand or replace rental inventory. Does NOT include customer-owned goods, cleaning supplies, or one-time linen purchases for resale."
+      },
+      {
+        "account_number": null,
+        "account_name": "Plastic and Bags",
+        "full_name_wcli": "Plastic and Bags - WCLI",
+        "full_name_wclc": "Plastic and Bags - WCLC",
+        "category": "Consumable Supplies",
+        "description": "Packaging materials for laundry operations. Includes poly bags, garment bags, laundry bags, shrink wrap, and plastic sheeting used in production. Does NOT include trash bags (use Break Room and Janitorial) or shipping boxes (use Postal Expenses)."
+      },
+      {
+        "account_number": null,
+        "account_name": "PPE and Safety Supplies",
+        "full_name_wcli": "PPE and Safety Supplies - WCLI",
+        "full_name_wclc": "PPE and Safety Supplies - WCLC",
+        "category": "Consumable Supplies",
+        "description": "Personal protective equipment and safety items for production staff. Includes gloves, safety glasses, ear protection, steel-toe boots, hard hats, high-visibility vests, hair nets, shoe covers, LOTO (Lock Out Tag Out) supplies, and first aid supplies. Does NOT include uniforms without safety features or office supplies."
+      },
+      {
+        "account_number": null,
+        "account_name": "Consumables for Equipment",
+        "full_name_wcli": "Consumables for Equipment - WCLI",
+        "full_name_wclc": "Consumables for Equipment - WCLC",
+        "category": "Consumable Supplies",
+        "description": "Consumable parts for laundry equipment that require regular replacement. Includes ironer wax, guide tape, thermal oil, ironer pads, folder textiles, and similar items. Does NOT include durable parts or components for repairs (use Plant Equipment - Components for Repairs)."
+      },
+      {
+        "account_number": null,
+        "account_name": "Break Room and Janitorial Supplies",
+        "full_name_wcli": "Break Room and Janitorial Supplies - WCLI",
+        "full_name_wclc": "Break Room and Janitorial Supplies - WCLC",
+        "category": "Consumable Supplies",
+        "description": "Consumables for employee break areas and facility cleaning. Includes paper towels, toilet paper, trash bags, cleaning chemicals, dish soap, coffee, snacks, and janitorial supplies. Does NOT include PPE (use PPE and Safety Supplies) or office supplies (use Office Expenses)."
+      },
+      {
+        "account_number": null,
+        "account_name": "Rent - Production and Storage",
+        "full_name_wcli": "Rent - Production and Storage - WCLI",
+        "full_name_wclc": "Rent - Production and Storage - WCLC",
+        "category": "Cost of Goods Sold",
+        "description": "Rent for production facilities, warehouses, and storage space. Includes laundry plant rent, warehouse leases, and off-site storage facilities. Does NOT include administrative office rent (use Office Rent) or equipment leases."
+      },
+      {
+        "account_number": null,
+        "account_name": "Outsourcing Washing",
+        "full_name_wcli": "Outsourcing Washing - WCLI",
+        "full_name_wclc": "Outsourcing Washing - WCLC",
+        "category": "Operations Outsourcing",
+        "description": "Payments to third-party laundries for overflow or specialty washing. Includes fees paid to other laundry facilities to process goods when capacity is exceeded or for specialized cleaning. Does NOT include delivery subcontractors (use Subcontractor for Delivery) or intra-company transfers (use Intra-Party Subcontractors)."
+      },
+      {
+        "account_number": null,
+        "account_name": "Intra-Party Subcontractors",
+        "full_name_wcli": "Intra-Party Subcontractors - WCLI",
+        "full_name_wclc": "Intra-Party Subcontractors - WCLC",
+        "category": "Operations Outsourcing",
+        "description": "Payments between related companies (WCLC, WCLDC, WCLI) for shared services or overflow work. Includes inter-company laundry processing, shared delivery runs, and allocated overhead. Does NOT include third-party vendors or unrelated subcontractors."
+      }
+    ],
+    "cogs_maintenance": [
+      {
+        "account_number": null,
+        "account_name": "Plant Equipment - Components for Repairs",
+        "full_name_wcli": "Plant Equipment - Components for Repairs - WCLI",
+        "full_name_wclc": "Plant Equipment - Components for Repairs - WCLC",
+        "category": "Plant Maintenance",
+        "description": "Supplies and components to repair laundry equipment. Includes replacement pumps, inverters, bearings, gaskets, motors, and lubricants for servicing. Does NOT include consumable parts replaced annually or more frequently (use appropriate consumables account) or third-party service fees (use Plant Equipment - Third Party Service)."
+      },
+      {
+        "account_number": null,
+        "account_name": "Plant Equipment - Third Party Service",
+        "full_name_wcli": "Plant Equipment - Third Party Service - WCLI",
+        "full_name_wclc": "Plant Equipment - Third Party Service - WCLC",
+        "category": "Plant Maintenance",
+        "description": "Service fees for third-party technicians to repair plant equipment on-site. Includes factory representative visits, boiler technicians, and specialized repair contractors. Does NOT include parts purchased separately (use Plant Equipment - Components for Repairs) or in-house maintenance labor."
+      },
+      {
+        "account_number": null,
+        "account_name": "Building Maintenance",
+        "full_name_wcli": "Building Maintenance - WCLI",
+        "full_name_wclc": "Building Maintenance - WCLC",
+        "category": "Plant Maintenance",
+        "description": "Repairs and maintenance for production facility buildings. Includes HVAC repairs, plumbing, electrical work, roof repairs, painting, and general facility upkeep. Does NOT include equipment repairs (use Plant Equipment accounts) or janitorial services (use Break Room and Janitorial Supplies)."
+      },
+      {
+        "account_number": null,
+        "account_name": "Tools - Expensed",
+        "full_name_wcli": "Tools - Expensed - WCLI",
+        "full_name_wclc": "Tools - Expensed - WCLC",
+        "category": "Plant Maintenance",
+        "description": "Durable tools and equipment under $5,000 that are expensed rather than capitalized. Includes drills, hand tool sets, toolboxes, cabinets, meters, multimeters, and diagnostic instruments. Tools over $5,000 should be capitalized as fixed assets. Does NOT include consumable supplies or parts."
+      }
+    ],
+    "cogs_utilities": [
+      {
+        "account_number": null,
+        "account_name": "Electric",
+        "full_name_wcli": "Electric - WCLI",
+        "full_name_wclc": "Electric - WCLC",
+        "category": "Utilities",
+        "description": "Electricity utility costs for production facilities. Includes electric bills for laundry plant operations, lighting, and equipment power. Does NOT include natural gas (use Natural Gas) or office electricity if billed separately."
+      },
+      {
+        "account_number": null,
+        "account_name": "Natural Gas",
+        "full_name_wcli": "Natural Gas - WCLI",
+        "full_name_wclc": "Natural Gas - WCLC",
+        "category": "Utilities",
+        "description": "Natural gas utility costs for production operations. Includes gas used for boilers, dryers, and heating production/warehouse facilities. Does NOT include propane, electricity (use Electricity account), or gas for delivery vehicles (use Gas and Tolls)."
+      },
+      {
+        "account_number": null,
+        "account_name": "Water and Sewer",
+        "full_name_wcli": "Water and Sewer - WCLI",
+        "full_name_wclc": "Water and Sewer - WCLC",
+        "category": "Utilities",
+        "description": "Water and sewer utility costs for production operations. Includes water used in washing processes, facility water usage, and municipal sewer charges. Does NOT include water delivery services or bottled water for staff (use Staff Amenities)."
+      },
+      {
+        "account_number": null,
+        "account_name": "Trash and Recycling",
+        "full_name_wcli": "Trash and Recycling - WCLI",
+        "full_name_wclc": "Trash and Recycling - WCLC",
+        "category": "Utilities",
+        "description": "Waste disposal and recycling services for production facilities. Includes dumpster rental, trash hauling, recycling pickup, and hazardous waste disposal. Does NOT include office trash service if billed separately."
+      }
+    ],
+    "cogs_staff": [
+      {
+        "account_number": null,
+        "account_name": "Employee Food and Perks",
+        "full_name_wcli": "Employee Food and Perks - WCLI",
+        "full_name_wclc": "Employee Food and Perks - WCLC",
+        "category": "Staff Amenities",
+        "description": "Food and non-cash perks for production staff. Includes team meals, pizza parties, birthday celebrations, employee appreciation gifts, and morale-boosting expenses. Does NOT include breakroom supplies (use Break Room and Janitorial Supplies) or business meals with clients (use Meals and Entertainment)."
+      },
+      {
+        "account_number": null,
+        "account_name": "Employee Uniforms",
+        "full_name_wcli": "Employee Uniforms - WCLI",
+        "full_name_wclc": "Employee Uniforms - WCLC",
+        "category": "Staff Amenities",
+        "description": "Branded apparel for employees. Includes T-shirts, jackets, and other Wash Cycle branded gear. Does NOT include PPE items with safety features (use PPE and Safety Supplies) or general work clothes without branding."
+      },
+      {
+        "account_number": null,
+        "account_name": "Employee Benefits for Production Staff",
+        "full_name_wcli": "Employee Benefits for Production Staff - WCLI",
+        "full_name_wclc": "Employee Benefits for Production Staff - WCLC",
+        "category": "Direct Personnel",
+        "description": "Benefits provided to direct labor employees. Includes health insurance premiums, 401(k) contributions, life insurance, and other fringe benefits for production, delivery, and maintenance workers. Does NOT include admin staff benefits (use Employee Benefits for Admin Staff) or payroll taxes."
+      }
+    ],
+    "cogs_mistakes": [
+      {
+        "account_number": null,
+        "account_name": "SNAFU",
+        "full_name_wcli": "SNAFU - WCLI",
+        "full_name_wclc": "SNAFU - WCLC",
+        "category": "Mistakes",
+        "description": "Miscellaneous operational errors and unexpected costs that don't fit other categories. Includes one-time mistakes, unusual losses, and unclassifiable operational expenses. Use sparingly - most expenses should be categorized to a specific account."
+      },
+      {
+        "account_number": null,
+        "account_name": "Customer Credits for Service Errors",
+        "full_name_wcli": "Customer Credits for Service Errors - WCLI",
+        "full_name_wclc": "Customer Credits for Service Errors - WCLC",
+        "category": "Mistakes",
+        "description": "Credits issued to customers due to service failures. Includes credits for late deliveries, damaged items, lost goods, or quality issues caused by operational mistakes. Does NOT include incentive discounts, promotional credits, or billing error corrections (those should be deducted against revenue)."
+      },
+      {
+        "account_number": null,
+        "account_name": "Tickets and Fines",
+        "full_name_wcli": "Tickets and Fines - WCLI",
+        "full_name_wclc": "Tickets and Fines - WCLC",
+        "category": "Mistakes",
+        "description": "Traffic violations and regulatory fines related to operations. Includes parking tickets, moving violations, DOT fines, overweight citations, and other regulatory penalties. Does NOT include business license fees (use Business Taxes & Licenses) or vehicle damage (use Vehicle Damage Claims and Repairs)."
+      },
+      {
+        "account_number": null,
+        "account_name": "Vehicle Damage Claims and Repairs",
+        "full_name_wcli": "Vehicle Damage Claims and Repairs - WCLI",
+        "full_name_wclc": "Vehicle Damage Claims and Repairs - WCLC",
+        "category": "Mistakes",
+        "description": "Costs from vehicle accidents and major damage repairs. Includes collision repairs, insurance deductibles, third-party damage claims, claims from the Enterprise Damage Recovery Unit, and body work from accidents. Does NOT include routine maintenance (use Routine Maintenance on Trucks) or traffic tickets (use Tickets and Fines)."
+      }
+    ]
+  },
+  "mcc_mappings": {
+    "5541": {"primary": "Gas and Tolls", "alternative": "5216 - Travel Expenses", "notes": "Gas stations - use Gas and Tolls for delivery team, Travel for admin"},
+    "5542": {"primary": "Gas and Tolls", "alternative": "5216 - Travel Expenses", "notes": "Automated fuel - same as 5541"},
+    "7523": {"primary": "Gas and Tolls", "alternative": "5216 - Travel Expenses", "notes": "Parking lots - delivery vs admin"},
+    "3000-3350": {"primary": "5216 - Travel Expenses", "notes": "Airlines - always overhead travel"},
+    "4111": {"primary": "5216 - Travel Expenses", "notes": "Local transit"},
+    "4112": {"primary": "5216 - Travel Expenses", "notes": "Railways - Amtrak"},
+    "4121": {"primary": "5216 - Travel Expenses", "alternative": "Subcontractor for Delivery", "notes": "Rideshare - context dependent"},
+    "7011": {"primary": "5216 - Travel Expenses", "notes": "Hotels"},
+    "7512": {"primary": "Vehicle Lease and Mileage", "alternative": "5216 - Travel Expenses", "notes": "Car rental - delivery vs admin travel"},
+    "5734": {"primary": "5243 - Web Services", "notes": "Computer software"},
+    "7372": {"primary": "5243 - Web Services", "notes": "Computer programming"},
+    "7379": {"primary": "5243 - Web Services", "notes": "Computer services"},
+    "9402": {"primary": "5210 - Postal Expenses", "notes": "Postal services - USPS"},
+    "4215": {"primary": "5210 - Postal Expenses", "notes": "Courier services - FedEx/UPS"},
+    "7211": {"primary": "Coin Wash Fees", "notes": "Laundry/dry cleaning services"},
+    "5968": {"primary": "5245 - Professional business subscriptions", "notes": "Subscription merchants"},
+    "5812": {"primary": "Employee Food and Perks", "alternative": "5216 - Travel Expenses", "notes": "Restaurants - local vs travel"},
+    "5814": {"primary": "Employee Food and Perks", "notes": "Fast food"},
+    "5411": {"primary": "Employee Food and Perks", "alternative": "5216 - Travel Expenses", "notes": "Grocery - local vs travel"},
+    "5111": {"primary": "5239 - Office Expenses", "notes": "Office supplies"},
+    "5943": {"primary": "5239 - Office Expenses", "notes": "Stationery stores"},
+    "6513": {"primary": "5209 - Office Rent", "notes": "Real estate - coworking spaces"},
+    "8398": {"primary": "5207 - Advertising and Marketing", "alternative": "5211 - Donations", "notes": "Charitable orgs - verify if sponsorship"},
+    "9399": {"primary": "5229 - Business Taxes & Licenses", "notes": "Government services"},
+    "9211": {"primary": "5229 - Business Taxes & Licenses", "notes": "Court costs/fines"}
+  },
+  "classification_notes": {
+    "key_changes": [
+      "OLD: 5110 Gas Tolls Fines -> NEW: Gas and Tolls (no account number, COGS)",
+      "OLD: 5120 Vehicle Leases Mileage -> NEW: Vehicle Lease and Mileage (no account number, COGS)",
+      "OLD: 5130 Delivery Subcontractors -> NEW: Subcontractor for Delivery (no account number, COGS)",
+      "OLD: 5150 Coin Wash Fees -> NEW: Coin Wash Fees (no account number, COGS)",
+      "OLD: 5200 Maintenance -> Split into: Plant Equipment - Components for Repairs, Plant Equipment - Third Party Service, Building Maintenance, Routine Maintenance on Trucks",
+      "OLD: 5220 Employee Food -> NEW: Employee Food and Perks (no account number, COGS)",
+      "OLD: 5660 Shipping Supplies -> NEW: 5210 Postal Expenses (overhead)",
+      "OLD: 5700 Telephone Internet -> NEW: 5242 Telephone & Internet",
+      "OLD: 5800 Travel -> NEW: 5216 Travel Expenses",
+      "OLD: 5900 Web Services -> NEW: 5243 Web Services",
+      "OLD: 5400 Office Expenses -> NEW: 5239 Office Expenses",
+      "OLD: 5020 Advertising Marketing -> NEW: 5207 Advertising and Marketing"
+    ],
+    "account_naming": "Many COGS accounts now use descriptive names without account numbers. The full ERPNext account name is '{account_name} - {company_suffix}'",
+    "overhead_vs_cogs": "Pay attention to category - overhead accounts are indirect expenses, COGS accounts are direct costs of production/delivery"
+  }
+}

@@ -42,27 +42,78 @@ COMPANY_CONFIG = {
     },
 }
 
-# Account name mapping for accounts that don't follow "{number} - {name} - {suffix}" pattern
-# Key: account identifier used in classification, Value: actual ERPNext account name
-ACCOUNT_NAME_OVERRIDES = {
-    # WCLC accounts without number prefix
-    "WCLC": {
-        "5150": "Coin Wash Fees - WCLC",  # Default for 5150 in WCLC
-        "Chemicals and Detergent": "Chemicals and Detergent - WCLC",
-        "Coin Wash Fees": "Coin Wash Fees - WCLC",
-        "Delivery Cost - Gas Tolls Fines": "Delivery Cost - Gas Tolls Fines - WCLC",
-        "Delivery Cost - Vehicle Lease and Mileage": "Delivery Cost - Vehicle Lease and Mileage - WCLC",
-        "Maintenance - Bikes": "Maintenance - Bikes - WCLC",
-        "Maintenance - Trucks": "Maintenance - Trucks - WCLC",
-        "Rent - Production and Storage": "Rent - Production and Storage - WCLC",
-        "Wash Cost - Employee Food Drinks Perks": "Wash Cost - Employee Food Drinks Perks - WCLC",
-        "Wash Cost - Miscellaneous": "Wash Cost - Miscellaneous - WCLC",
-        "Employee Benefits for Production Staff": "Employee Benefits for Production Staff - WCLC",
-    },
-    "WCLI": {
-        # Add WCLI overrides here if needed
-    },
+# Overhead accounts that use "{number} - {name} - {suffix}" pattern
+OVERHEAD_ACCOUNTS = {
+    "5206": "Legal Expenses",
+    "5207": "Advertising and Marketing",
+    "5209": "Office Rent",
+    "5210": "Postal Expenses",
+    "5211": "Donations",
+    "5216": "Travel Expenses",
+    "5223": "Bank Fees and Charges",
+    "5224": "Bad Debt",
+    "5226": "Other Expenses",
+    "5229": "Business Taxes & Licenses",
+    "5231": "Computer Equipment",
+    "5232": "Accounting Fees",
+    "5233": "Subcontractor 1099 or UpWork",
+    "5236": "HR Consulting & Hiring",
+    "5237": "Employee Benefits for Admin Staff",
+    "5238": "Insurance",
+    "5239": "Office Expenses",
+    "5240": "Payroll SG&A",
+    "5241": "Payroll Taxes - SG&A",
+    "5242": "Telephone & Internet",
+    "5243": "Web Services",
+    "5244": "Consulting",
+    "5245": "Professional business subscriptions",
+    "5246": "Merchant Card Services",
+    "5247": "Payroll Fees",
+    "5248": "Interest Expense",
+    "5251": "Meals and Entertainment",
+    "5252": "Training and Professional Development",
+    "5263": "Professional Services",
 }
+
+# COGS accounts that use "{name} - {suffix}" pattern (no account number)
+COGS_ACCOUNTS = [
+    # Delivery Cost
+    "Gas and Tolls",
+    "Vehicle Lease and Mileage",
+    "Routine Maintenance on Trucks",
+    "Bike Maintenance",
+    "Subcontractor for Delivery",
+    # Production / Consumables
+    "Chemicals and Detergent",
+    "Coin Wash Fees",
+    "Linen Inventory",
+    "Plastic and Bags",
+    "PPE and Safety Supplies",
+    "Consumables for Equipment",
+    "Break Room and Janitorial Supplies",
+    "Rent - Production and Storage",
+    "Outsourcing Washing",
+    "Intra-Party Subcontractors",
+    # Maintenance
+    "Plant Equipment - Components for Repairs",
+    "Plant Equipment - Third Party Service",
+    "Building Maintenance",
+    "Tools - Expensed",
+    # Utilities
+    "Electric",
+    "Natural Gas",
+    "Water and Sewer",
+    "Trash and Recycling",
+    # Staff
+    "Employee Food and Perks",
+    "Employee Uniforms",
+    "Employee Benefits for Production Staff",
+    # Mistakes
+    "SNAFU",
+    "Customer Credits for Service Errors",
+    "Tickets and Fines",
+    "Vehicle Damage Claims and Repairs",
+]
 
 
 @dataclass
@@ -123,30 +174,45 @@ def resolve_expense_account(company: str, account_number: str, account_name: str
     """
     Resolve the full ERPNext account name for an expense account.
 
-    Some accounts follow "{number} - {name} - {suffix}" pattern, others don't.
-    This function handles both cases using the ACCOUNT_NAME_OVERRIDES mapping.
+    Overhead accounts follow "{number} - {name} - {suffix}" pattern.
+    COGS accounts follow "{name} - {suffix}" pattern (no account number).
 
     Args:
         company: Company code ("WCLI" or "WCLC")
-        account_number: GL account number (e.g., "5216")
+        account_number: GL account number (e.g., "5216") or account name for COGS
         account_name: GL account name (e.g., "Travel Expenses")
 
     Returns:
         Full ERPNext account name
     """
     suffix = COMPANY_CONFIG[company]["account_suffix"]
-    overrides = ACCOUNT_NAME_OVERRIDES.get(company, {})
 
-    # Check if account number has an override
-    if account_number in overrides:
-        return overrides[account_number]
+    # Check if this is a COGS account (identified by name, no number)
+    # account_number might actually contain the account name for COGS accounts
+    if account_number in COGS_ACCOUNTS:
+        return f"{account_number} - {suffix}"
 
-    # Check if account name has an override
-    if account_name in overrides:
-        return overrides[account_name]
+    if account_name in COGS_ACCOUNTS:
+        return f"{account_name} - {suffix}"
 
-    # Default: construct standard format
-    return f"{account_number} - {account_name} - {suffix}"
+    # Check if this is an overhead account with a number
+    if account_number in OVERHEAD_ACCOUNTS:
+        name = OVERHEAD_ACCOUNTS[account_number]
+        return f"{account_number} - {name} - {suffix}"
+
+    # If account_number looks like a number and we have a name, use standard format
+    if account_number and account_number.isdigit() and account_name:
+        return f"{account_number} - {account_name} - {suffix}"
+
+    # Fallback: if we only have an account name, assume it's a COGS-style account
+    if account_name and not account_number:
+        return f"{account_name} - {suffix}"
+
+    # Last resort: construct with whatever we have
+    if account_number and account_name:
+        return f"{account_number} - {account_name} - {suffix}"
+
+    raise ValueError(f"Cannot resolve account: number='{account_number}', name='{account_name}'")
 
 
 def create_journal_entry(
