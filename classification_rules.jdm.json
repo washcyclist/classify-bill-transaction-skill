@@ -85,7 +85,7 @@
             "merchant_expr": "",
             "amount_expr": "",
             "user_team": "\"Delivery\"",
-            "state_match": "\"LOCAL\"",
+            "state_match": "",
             "gl_account": "\"Gas and Tolls\"",
             "gl_account_name": "\"Gas and Tolls\"",
             "action": "\"AUTO_POST\"",
@@ -96,27 +96,15 @@
             "mcc": "\"5541\"",
             "merchant_expr": "",
             "amount_expr": "",
-            "user_team": "\"Delivery\"",
-            "state_match": "\"OUT_OF_STATE\"",
-            "gl_account": "\"Gas and Tolls\"",
-            "gl_account_name": "\"Gas and Tolls\"",
-            "action": "\"REVIEW\"",
-            "notes": "\"Out-of-state gas for delivery - verify purpose\""
-          },
-          {
-            "_id": "rule-3",
-            "mcc": "\"5541\"",
-            "merchant_expr": "",
-            "amount_expr": "",
             "user_team": "\"Production\"",
-            "state_match": "\"LOCAL\"",
+            "state_match": "",
             "gl_account": "\"Gas and Tolls\"",
             "gl_account_name": "\"Gas and Tolls\"",
             "action": "\"AUTO_POST\"",
             "notes": "\"Gas for production vehicles\""
           },
           {
-            "_id": "rule-4",
+            "_id": "rule-3",
             "mcc": "\"5541\"",
             "merchant_expr": "",
             "amount_expr": "",
@@ -128,7 +116,7 @@
             "notes": "\"Gas for admin/overhead travel\""
           },
           {
-            "_id": "rule-5",
+            "_id": "rule-4",
             "mcc": "\"5541\"",
             "merchant_expr": "",
             "amount_expr": "",
@@ -140,7 +128,7 @@
             "notes": "\"Gas station - unknown team - needs review\""
           },
           {
-            "_id": "rule-6",
+            "_id": "rule-5",
             "mcc": "\"5542\"",
             "merchant_expr": "",
             "amount_expr": "",
@@ -152,7 +140,7 @@
             "notes": "\"Gas/fuel for delivery vehicles (MCC: automated fuel)\""
           },
           {
-            "_id": "rule-7",
+            "_id": "rule-6",
             "mcc": "\"5542\"",
             "merchant_expr": "",
             "amount_expr": "",
@@ -164,7 +152,7 @@
             "notes": "\"Out-of-state fuel for delivery - verify purpose\""
           },
           {
-            "_id": "rule-8",
+            "_id": "rule-7",
             "mcc": "\"5542\"",
             "merchant_expr": "",
             "amount_expr": "",
@@ -176,7 +164,7 @@
             "notes": "\"Fuel for production vehicles\""
           },
           {
-            "_id": "rule-9",
+            "_id": "rule-8",
             "mcc": "\"5542\"",
             "merchant_expr": "",
             "amount_expr": "",
@@ -188,7 +176,7 @@
             "notes": "\"Fuel for admin/overhead travel\""
           },
           {
-            "_id": "rule-10",
+            "_id": "rule-9",
             "mcc": "\"5542\"",
             "merchant_expr": "",
             "amount_expr": "",
@@ -200,31 +188,31 @@
             "notes": "\"Automated fuel dispenser - unknown team - needs review\""
           },
           {
-            "_id": "rule-11",
+            "_id": "rule-10",
             "mcc": "\"7523\"",
             "merchant_expr": "",
             "amount_expr": "",
             "user_team": "\"Delivery\"",
-            "state_match": "\"LOCAL\"",
+            "state_match": "",
             "gl_account": "\"Gas and Tolls\"",
             "gl_account_name": "\"Gas and Tolls\"",
             "action": "\"AUTO_POST\"",
             "notes": "\"Parking for delivery vehicles\""
           },
           {
-            "_id": "rule-12",
+            "_id": "rule-11",
             "mcc": "\"7523\"",
             "merchant_expr": "",
             "amount_expr": "",
-            "user_team": "\"Delivery\"",
-            "state_match": "\"OUT_OF_STATE\"",
-            "gl_account": "\"5216\"",
-            "gl_account_name": "\"Travel Expenses\"",
-            "action": "\"REVIEW\"",
-            "notes": "\"Out-of-state parking for delivery - verify\""
+            "user_team": "\"Production\"",
+            "state_match": "",
+            "gl_account": "\"Gas and Tolls\"",
+            "gl_account_name": "\"Gas and Tolls\"",
+            "action": "\"AUTO_POST\"",
+            "notes": "\"Parking for production vehicles\""
           },
           {
-            "_id": "rule-13",
+            "_id": "rule-12",
             "mcc": "\"7523\"",
             "merchant_expr": "",
             "amount_expr": "",
@@ -236,7 +224,7 @@
             "notes": "\"Parking for admin/overhead travel\""
           },
           {
-            "_id": "rule-14",
+            "_id": "rule-13",
             "mcc": "\"7523\"",
             "merchant_expr": "",
             "amount_expr": "",
@@ -248,7 +236,7 @@
             "notes": "\"Parking - unknown team - needs review\""
           },
           {
-            "_id": "rule-15",
+            "_id": "rule-14",
             "mcc": "\"3174\"",
             "merchant_expr": "",
             "amount_expr": "",
@@ -260,7 +248,7 @@
             "notes": "\"Airline - JetBlue\""
           },
           {
-            "_id": "rule-16",
+            "_id": "rule-15",
             "mcc": "\"3000\"",
             "merchant_expr": "",
             "amount_expr": "",
@@ -272,7 +260,7 @@
             "notes": "\"Airline - United\""
           },
           {
-            "_id": "rule-17",
+            "_id": "rule-16",
             "mcc": "\"3001\"",
             "merchant_expr": "",
             "amount_expr": "",
@@ -284,7 +272,7 @@
             "notes": "\"Airline - American\""
           },
           {
-            "_id": "rule-18",
+            "_id": "rule-17",
             "mcc": "\"3058\"",
             "merchant_expr": "",
             "amount_expr": "",
@@ -296,7 +284,7 @@
             "notes": "\"Airline - Delta\""
           },
           {
-            "_id": "rule-19",
+            "_id": "rule-18",
             "mcc": "\"3026\"",
             "merchant_expr": "",
             "amount_expr": "",
@@ -308,7 +296,7 @@
             "notes": "\"Airline - Southwest\""
           },
           {
-            "_id": "rule-20",
+            "_id": "rule-19",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"AIRLINE\")",
             "amount_expr": "",
@@ -320,7 +308,7 @@
             "notes": "\"Airline travel (merchant pattern)\""
           },
           {
-            "_id": "rule-21",
+            "_id": "rule-20",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"JETBLUE\")",
             "amount_expr": "",
@@ -332,7 +320,7 @@
             "notes": "\"JetBlue flights\""
           },
           {
-            "_id": "rule-22",
+            "_id": "rule-21",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"DELTA\")",
             "amount_expr": "",
@@ -344,7 +332,7 @@
             "notes": "\"Delta flights\""
           },
           {
-            "_id": "rule-23",
+            "_id": "rule-22",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"AMERICAN AIR\")",
             "amount_expr": "",
@@ -356,7 +344,7 @@
             "notes": "\"American Airlines\""
           },
           {
-            "_id": "rule-24",
+            "_id": "rule-23",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"SOUTHWEST\")",
             "amount_expr": "",
@@ -368,7 +356,7 @@
             "notes": "\"Southwest Airlines\""
           },
           {
-            "_id": "rule-25",
+            "_id": "rule-24",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"UNITED\")",
             "amount_expr": "",
@@ -380,7 +368,7 @@
             "notes": "\"United Airlines\""
           },
           {
-            "_id": "rule-26",
+            "_id": "rule-25",
             "mcc": "\"4112\"",
             "merchant_expr": "",
             "amount_expr": "",
@@ -392,7 +380,7 @@
             "notes": "\"Train travel (Amtrak etc)\""
           },
           {
-            "_id": "rule-27",
+            "_id": "rule-26",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"AMTRAK\")",
             "amount_expr": "",
@@ -404,7 +392,7 @@
             "notes": "\"Amtrak train travel\""
           },
           {
-            "_id": "rule-28",
+            "_id": "rule-27",
             "mcc": "\"4111\"",
             "merchant_expr": "",
             "amount_expr": "",
@@ -416,7 +404,7 @@
             "notes": "\"Local transit (subway/bus)\""
           },
           {
-            "_id": "rule-29",
+            "_id": "rule-28",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"MBTA\")",
             "amount_expr": "",
@@ -428,7 +416,7 @@
             "notes": "\"Boston transit\""
           },
           {
-            "_id": "rule-30",
+            "_id": "rule-29",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"SEPTA\")",
             "amount_expr": "",
@@ -440,7 +428,7 @@
             "notes": "\"Philadelphia transit\""
           },
           {
-            "_id": "rule-31",
+            "_id": "rule-30",
             "mcc": "\"4121\"",
             "merchant_expr": "",
             "amount_expr": "",
@@ -452,7 +440,7 @@
             "notes": "\"Taxi/rideshare for admin travel\""
           },
           {
-            "_id": "rule-32",
+            "_id": "rule-31",
             "mcc": "\"4121\"",
             "merchant_expr": "",
             "amount_expr": "",
@@ -464,7 +452,7 @@
             "notes": "\"Rideshare for delivery - verify purpose\""
           },
           {
-            "_id": "rule-33",
+            "_id": "rule-32",
             "mcc": "\"4121\"",
             "merchant_expr": "",
             "amount_expr": "",
@@ -476,7 +464,7 @@
             "notes": "\"Taxi/rideshare - unknown team - needs review\""
           },
           {
-            "_id": "rule-34",
+            "_id": "rule-33",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"UBER\")",
             "amount_expr": "",
@@ -488,7 +476,7 @@
             "notes": "\"Uber - needs team context for proper classification\""
           },
           {
-            "_id": "rule-35",
+            "_id": "rule-34",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"LYFT\")",
             "amount_expr": "",
@@ -500,7 +488,7 @@
             "notes": "\"Lyft - needs team context for proper classification\""
           },
           {
-            "_id": "rule-36",
+            "_id": "rule-35",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"CURB\")",
             "amount_expr": "",
@@ -512,7 +500,7 @@
             "notes": "\"Curb taxi app\""
           },
           {
-            "_id": "rule-37",
+            "_id": "rule-36",
             "mcc": "\"7011\"",
             "merchant_expr": "",
             "amount_expr": "",
@@ -524,7 +512,7 @@
             "notes": "\"Hotel for out-of-state travel\""
           },
           {
-            "_id": "rule-38",
+            "_id": "rule-37",
             "mcc": "\"7011\"",
             "merchant_expr": "",
             "amount_expr": "",
@@ -536,7 +524,7 @@
             "notes": "\"Local hotel - verify business purpose\""
           },
           {
-            "_id": "rule-39",
+            "_id": "rule-38",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"MARRIOTT\")",
             "amount_expr": "",
@@ -548,7 +536,7 @@
             "notes": "\"Marriott hotel\""
           },
           {
-            "_id": "rule-40",
+            "_id": "rule-39",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"HILTON\")",
             "amount_expr": "",
@@ -560,7 +548,7 @@
             "notes": "\"Hilton hotel\""
           },
           {
-            "_id": "rule-41",
+            "_id": "rule-40",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"HYATT\")",
             "amount_expr": "",
@@ -572,7 +560,7 @@
             "notes": "\"Hyatt hotel\""
           },
           {
-            "_id": "rule-42",
+            "_id": "rule-41",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"HOTEL\")",
             "amount_expr": "",
@@ -584,7 +572,7 @@
             "notes": "\"Hotel lodging\""
           },
           {
-            "_id": "rule-43",
+            "_id": "rule-42",
             "mcc": "\"7512\"",
             "merchant_expr": "",
             "amount_expr": "",
@@ -596,7 +584,7 @@
             "notes": "\"Local vehicle rental for delivery\""
           },
           {
-            "_id": "rule-44",
+            "_id": "rule-43",
             "mcc": "\"7512\"",
             "merchant_expr": "",
             "amount_expr": "",
@@ -608,7 +596,7 @@
             "notes": "\"Out-of-state rental for admin travel\""
           },
           {
-            "_id": "rule-45",
+            "_id": "rule-44",
             "mcc": "\"7512\"",
             "merchant_expr": "",
             "amount_expr": "",
@@ -620,7 +608,7 @@
             "notes": "\"Out-of-state car rental - travel\""
           },
           {
-            "_id": "rule-46",
+            "_id": "rule-45",
             "mcc": "\"7512\"",
             "merchant_expr": "",
             "amount_expr": "",
@@ -632,7 +620,7 @@
             "notes": "\"Local car rental - verify if delivery or travel\""
           },
           {
-            "_id": "rule-47",
+            "_id": "rule-46",
             "mcc": "\"7512\"",
             "merchant_expr": "contains(upper(merchant), \"HERTZ\")",
             "amount_expr": "",
@@ -644,7 +632,7 @@
             "notes": "\"Hertz rental - verify purpose\""
           },
           {
-            "_id": "rule-48",
+            "_id": "rule-47",
             "mcc": "\"7512\"",
             "merchant_expr": "contains(upper(merchant), \"ENTERPRISE\")",
             "amount_expr": "",
@@ -656,7 +644,7 @@
             "notes": "\"Enterprise rental - verify purpose\""
           },
           {
-            "_id": "rule-49",
+            "_id": "rule-48",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"BUDGET RENT\")",
             "amount_expr": "",
@@ -668,7 +656,7 @@
             "notes": "\"Budget rental - verify purpose\""
           },
           {
-            "_id": "rule-50",
+            "_id": "rule-49",
             "mcc": "\"5734\"",
             "merchant_expr": "",
             "amount_expr": "",
@@ -680,7 +668,7 @@
             "notes": "\"Computer software (MCC)\""
           },
           {
-            "_id": "rule-51",
+            "_id": "rule-50",
             "mcc": "\"7372\"",
             "merchant_expr": "",
             "amount_expr": "",
@@ -692,7 +680,7 @@
             "notes": "\"Computer programming services (MCC)\""
           },
           {
-            "_id": "rule-52",
+            "_id": "rule-51",
             "mcc": "\"7379\"",
             "merchant_expr": "",
             "amount_expr": "",
@@ -704,7 +692,31 @@
             "notes": "\"Computer services (MCC)\""
           },
           {
+            "_id": "rule-52",
+            "mcc": "\"5817\"",
+            "merchant_expr": "",
+            "amount_expr": "",
+            "user_team": "",
+            "state_match": "",
+            "gl_account": "\"5243\"",
+            "gl_account_name": "\"Web Services\"",
+            "action": "\"AUTO_POST\"",
+            "notes": "\"Digital goods/software (MCC)\""
+          },
+          {
             "_id": "rule-53",
+            "mcc": "\"5065\"",
+            "merchant_expr": "",
+            "amount_expr": "",
+            "user_team": "",
+            "state_match": "",
+            "gl_account": "\"5243\"",
+            "gl_account_name": "\"Web Services\"",
+            "action": "\"AUTO_POST\"",
+            "notes": "\"Electrical parts (MCC) - often IoT/dev boards like Arduino\""
+          },
+          {
+            "_id": "rule-54",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"OPENAI\")",
             "amount_expr": "",
@@ -716,7 +728,7 @@
             "notes": "\"OpenAI/ChatGPT\""
           },
           {
-            "_id": "rule-54",
+            "_id": "rule-55",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"SUPABASE\")",
             "amount_expr": "",
@@ -728,7 +740,7 @@
             "notes": "\"Supabase cloud service\""
           },
           {
-            "_id": "rule-55",
+            "_id": "rule-56",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"GITHUB\")",
             "amount_expr": "",
@@ -740,7 +752,7 @@
             "notes": "\"GitHub\""
           },
           {
-            "_id": "rule-56",
+            "_id": "rule-57",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"GOOGLE*CLOUD\")",
             "amount_expr": "",
@@ -752,7 +764,7 @@
             "notes": "\"Google Cloud\""
           },
           {
-            "_id": "rule-57",
+            "_id": "rule-58",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"TWILIO\")",
             "amount_expr": "",
@@ -764,7 +776,7 @@
             "notes": "\"Twilio communications\""
           },
           {
-            "_id": "rule-58",
+            "_id": "rule-59",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"ZOHO\")",
             "amount_expr": "",
@@ -776,7 +788,7 @@
             "notes": "\"Zoho services\""
           },
           {
-            "_id": "rule-59",
+            "_id": "rule-60",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"CAUSAL\")",
             "amount_expr": "",
@@ -788,7 +800,7 @@
             "notes": "\"Causal analytics\""
           },
           {
-            "_id": "rule-60",
+            "_id": "rule-61",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"AUGMENT\")",
             "amount_expr": "",
@@ -800,7 +812,7 @@
             "notes": "\"Augment Code\""
           },
           {
-            "_id": "rule-61",
+            "_id": "rule-62",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"SLACK\")",
             "amount_expr": "",
@@ -812,7 +824,7 @@
             "notes": "\"Slack subscription\""
           },
           {
-            "_id": "rule-62",
+            "_id": "rule-63",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"ZOOM\")",
             "amount_expr": "",
@@ -824,7 +836,7 @@
             "notes": "\"Zoom subscription\""
           },
           {
-            "_id": "rule-63",
+            "_id": "rule-64",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"MICROSOFT\")",
             "amount_expr": "",
@@ -836,7 +848,7 @@
             "notes": "\"Microsoft services\""
           },
           {
-            "_id": "rule-64",
+            "_id": "rule-65",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"LINKEDIN\")",
             "amount_expr": "",
@@ -848,7 +860,7 @@
             "notes": "\"LinkedIn services\""
           },
           {
-            "_id": "rule-65",
+            "_id": "rule-66",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"LOB.COM\")",
             "amount_expr": "",
@@ -860,7 +872,7 @@
             "notes": "\"Lob.com direct mail API\""
           },
           {
-            "_id": "rule-66",
+            "_id": "rule-67",
             "mcc": "\"9402\"",
             "merchant_expr": "",
             "amount_expr": "",
@@ -872,7 +884,7 @@
             "notes": "\"Postal services (MCC)\""
           },
           {
-            "_id": "rule-67",
+            "_id": "rule-68",
             "mcc": "\"4215\"",
             "merchant_expr": "",
             "amount_expr": "",
@@ -884,7 +896,7 @@
             "notes": "\"Courier services (MCC)\""
           },
           {
-            "_id": "rule-68",
+            "_id": "rule-69",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"USPS\")",
             "amount_expr": "",
@@ -896,7 +908,7 @@
             "notes": "\"USPS postal services\""
           },
           {
-            "_id": "rule-69",
+            "_id": "rule-70",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"UPS\")",
             "amount_expr": "",
@@ -908,7 +920,7 @@
             "notes": "\"UPS shipping\""
           },
           {
-            "_id": "rule-70",
+            "_id": "rule-71",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"FEDEX\")",
             "amount_expr": "",
@@ -920,7 +932,7 @@
             "notes": "\"FedEx shipping\""
           },
           {
-            "_id": "rule-71",
+            "_id": "rule-72",
             "mcc": "\"6513\"",
             "merchant_expr": "",
             "amount_expr": "",
@@ -932,7 +944,7 @@
             "notes": "\"Real estate/office space (MCC)\""
           },
           {
-            "_id": "rule-72",
+            "_id": "rule-73",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"REGUS\")",
             "amount_expr": "",
@@ -944,7 +956,7 @@
             "notes": "\"Regus coworking space\""
           },
           {
-            "_id": "rule-73",
+            "_id": "rule-74",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"WEWORK\")",
             "amount_expr": "",
@@ -956,7 +968,31 @@
             "notes": "\"WeWork coworking space\""
           },
           {
-            "_id": "rule-74",
+            "_id": "rule-75",
+            "mcc": "\"4225\"",
+            "merchant_expr": "",
+            "amount_expr": "",
+            "user_team": "",
+            "state_match": "",
+            "gl_account": "\"Rent - Production and Storage\"",
+            "gl_account_name": "\"Rent - Production and Storage\"",
+            "action": "\"AUTO_POST\"",
+            "notes": "\"Storage facilities (MCC: public warehousing)\""
+          },
+          {
+            "_id": "rule-76",
+            "mcc": "",
+            "merchant_expr": "contains(upper(merchant), \"EXTRA SPACE\")",
+            "amount_expr": "",
+            "user_team": "",
+            "state_match": "",
+            "gl_account": "\"Rent - Production and Storage\"",
+            "gl_account_name": "\"Rent - Production and Storage\"",
+            "action": "\"AUTO_POST\"",
+            "notes": "\"Extra Space Storage\""
+          },
+          {
+            "_id": "rule-77",
             "mcc": "\"7211\"",
             "merchant_expr": "",
             "amount_expr": "",
@@ -968,7 +1004,7 @@
             "notes": "\"Laundry services (MCC: dry cleaners)\""
           },
           {
-            "_id": "rule-75",
+            "_id": "rule-78",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"REVOLUTION LAUNDRY\")",
             "amount_expr": "",
@@ -980,7 +1016,7 @@
             "notes": "\"Revolution Laundry coin wash\""
           },
           {
-            "_id": "rule-76",
+            "_id": "rule-79",
             "mcc": "\"5968\"",
             "merchant_expr": "",
             "amount_expr": "",
@@ -992,7 +1028,7 @@
             "notes": "\"Subscription services (MCC)\""
           },
           {
-            "_id": "rule-77",
+            "_id": "rule-80",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"HBR\")",
             "amount_expr": "",
@@ -1004,7 +1040,7 @@
             "notes": "\"Harvard Business Review\""
           },
           {
-            "_id": "rule-78",
+            "_id": "rule-81",
             "mcc": "\"9399\"",
             "merchant_expr": "",
             "amount_expr": "",
@@ -1012,11 +1048,11 @@
             "state_match": "",
             "gl_account": "\"5229\"",
             "gl_account_name": "\"Business Taxes & Licenses\"",
-            "action": "\"REVIEW\"",
-            "notes": "\"Government services - verify if tax/license or legal\""
+            "action": "\"AUTO_POST\"",
+            "notes": "\"Government services - taxes and licenses\""
           },
           {
-            "_id": "rule-79",
+            "_id": "rule-82",
             "mcc": "\"9211\"",
             "merchant_expr": "",
             "amount_expr": "",
@@ -1028,31 +1064,7 @@
             "notes": "\"Court costs/fines\""
           },
           {
-            "_id": "rule-80",
-            "mcc": "",
-            "merchant_expr": "contains(upper(merchant), \"DELAWARE CORP\")",
-            "amount_expr": "",
-            "user_team": "",
-            "state_match": "",
-            "gl_account": "\"5206\"",
-            "gl_account_name": "\"Legal Expenses\"",
-            "action": "\"AUTO_POST\"",
-            "notes": "\"Delaware corporate filings\""
-          },
-          {
-            "_id": "rule-81",
-            "mcc": "",
-            "merchant_expr": "contains(upper(merchant), \"STATE OF\")",
-            "amount_expr": "",
-            "user_team": "",
-            "state_match": "",
-            "gl_account": "\"5229\"",
-            "gl_account_name": "\"Business Taxes & Licenses\"",
-            "action": "\"REVIEW\"",
-            "notes": "\"State government - verify purpose\""
-          },
-          {
-            "_id": "rule-82",
+            "_id": "rule-83",
             "mcc": "\"5812\"",
             "merchant_expr": "",
             "amount_expr": "",
@@ -1064,7 +1076,7 @@
             "notes": "\"Restaurant - production team local meal\""
           },
           {
-            "_id": "rule-83",
+            "_id": "rule-84",
             "mcc": "\"5812\"",
             "merchant_expr": "",
             "amount_expr": "",
@@ -1076,7 +1088,7 @@
             "notes": "\"Restaurant - delivery team local meal\""
           },
           {
-            "_id": "rule-84",
+            "_id": "rule-85",
             "mcc": "\"5812\"",
             "merchant_expr": "",
             "amount_expr": "",
@@ -1088,7 +1100,7 @@
             "notes": "\"Restaurant - admin local - verify business purpose\""
           },
           {
-            "_id": "rule-85",
+            "_id": "rule-86",
             "mcc": "\"5812\"",
             "merchant_expr": "",
             "amount_expr": "",
@@ -1100,7 +1112,7 @@
             "notes": "\"Restaurant during out-of-state travel\""
           },
           {
-            "_id": "rule-86",
+            "_id": "rule-87",
             "mcc": "\"5814\"",
             "merchant_expr": "",
             "amount_expr": "",
@@ -1112,7 +1124,7 @@
             "notes": "\"Fast food - production team\""
           },
           {
-            "_id": "rule-87",
+            "_id": "rule-88",
             "mcc": "\"5814\"",
             "merchant_expr": "",
             "amount_expr": "",
@@ -1124,43 +1136,43 @@
             "notes": "\"Fast food - delivery team\""
           },
           {
-            "_id": "rule-88",
+            "_id": "rule-89",
             "mcc": "\"5411\"",
             "merchant_expr": "",
             "amount_expr": "",
             "user_team": "\"Production\"",
-            "state_match": "\"LOCAL\"",
+            "state_match": "",
             "gl_account": "\"Employee Food and Perks\"",
             "gl_account_name": "\"Employee Food and Perks\"",
             "action": "\"AUTO_POST\"",
             "notes": "\"Grocery - production team food/drinks\""
           },
           {
-            "_id": "rule-89",
+            "_id": "rule-90",
             "mcc": "\"5411\"",
             "merchant_expr": "",
             "amount_expr": "",
             "user_team": "\"Delivery\"",
-            "state_match": "\"LOCAL\"",
+            "state_match": "",
             "gl_account": "\"Employee Food and Perks\"",
             "gl_account_name": "\"Employee Food and Perks\"",
             "action": "\"AUTO_POST\"",
             "notes": "\"Grocery - delivery team food/drinks\""
           },
           {
-            "_id": "rule-90",
+            "_id": "rule-91",
             "mcc": "\"5411\"",
             "merchant_expr": "",
             "amount_expr": "",
-            "user_team": "",
-            "state_match": "\"OUT_OF_STATE\"",
-            "gl_account": "\"5216\"",
-            "gl_account_name": "\"Travel Expenses\"",
+            "user_team": "\"Admin\"",
+            "state_match": "",
+            "gl_account": "\"Employee Food and Perks\"",
+            "gl_account_name": "\"Employee Food and Perks\"",
             "action": "\"AUTO_POST\"",
-            "notes": "\"Grocery during travel\""
+            "notes": "\"Grocery - admin team food/drinks\""
           },
           {
-            "_id": "rule-91",
+            "_id": "rule-92",
             "mcc": "\"5411\"",
             "merchant_expr": "",
             "amount_expr": "",
@@ -1172,19 +1184,19 @@
             "notes": "\"Grocery - unknown team - needs review\""
           },
           {
-            "_id": "rule-92",
+            "_id": "rule-93",
             "mcc": "\"5499\"",
             "merchant_expr": "",
             "amount_expr": "",
-            "user_team": "\"Production\"",
+            "user_team": "",
             "state_match": "",
             "gl_account": "\"Employee Food and Perks\"",
             "gl_account_name": "\"Employee Food and Perks\"",
             "action": "\"AUTO_POST\"",
-            "notes": "\"Convenience store - production snacks\""
+            "notes": "\"Convenience store snacks\""
           },
           {
-            "_id": "rule-93",
+            "_id": "rule-94",
             "mcc": "\"5111\"",
             "merchant_expr": "",
             "amount_expr": "(amount >= 0.0) and (amount <= 500.0)",
@@ -1196,7 +1208,7 @@
             "notes": "\"\""
           },
           {
-            "_id": "rule-94",
+            "_id": "rule-95",
             "mcc": "\"5111\"",
             "merchant_expr": "",
             "amount_expr": "(amount >= 500.0) and (amount <= 2000.0)",
@@ -1208,7 +1220,7 @@
             "notes": "\"\""
           },
           {
-            "_id": "rule-95",
+            "_id": "rule-96",
             "mcc": "\"5111\"",
             "merchant_expr": "",
             "amount_expr": "(amount >= 2000.0) and (amount <= 5000.0)",
@@ -1220,7 +1232,7 @@
             "notes": "\"\""
           },
           {
-            "_id": "rule-96",
+            "_id": "rule-97",
             "mcc": "\"5111\"",
             "merchant_expr": "",
             "amount_expr": "amount >= 5000.0",
@@ -1232,7 +1244,7 @@
             "notes": "\"\""
           },
           {
-            "_id": "rule-97",
+            "_id": "rule-98",
             "mcc": "\"5943\"",
             "merchant_expr": "",
             "amount_expr": "",
@@ -1244,7 +1256,7 @@
             "notes": "\"Stationery stores\""
           },
           {
-            "_id": "rule-98",
+            "_id": "rule-99",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"STAPLES\")",
             "amount_expr": "(amount >= 0.0) and (amount <= 500.0)",
@@ -1256,7 +1268,7 @@
             "notes": "\"Staples under $500\""
           },
           {
-            "_id": "rule-99",
+            "_id": "rule-100",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"STAPLES\")",
             "amount_expr": "(amount >= 500.0) and (amount <= 2000.0)",
@@ -1268,7 +1280,7 @@
             "notes": "\"Staples $500-$2000 - may be production supplies\""
           },
           {
-            "_id": "rule-100",
+            "_id": "rule-101",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"STAPLES\")",
             "amount_expr": "(amount >= 2000.0) and (amount <= 5000.0)",
@@ -1280,7 +1292,7 @@
             "notes": "\"Staples $2000-$5000 - verify not asset\""
           },
           {
-            "_id": "rule-101",
+            "_id": "rule-102",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"STAPLES\")",
             "amount_expr": "amount >= 5000.0",
@@ -1292,7 +1304,7 @@
             "notes": "\"Large Staples purchase over $5000 - potential asset\""
           },
           {
-            "_id": "rule-102",
+            "_id": "rule-103",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"OFFICE DEPOT\")",
             "amount_expr": "",
@@ -1304,7 +1316,7 @@
             "notes": "\"Office Depot supplies\""
           },
           {
-            "_id": "rule-103",
+            "_id": "rule-104",
             "mcc": "\"8398\"",
             "merchant_expr": "",
             "amount_expr": "",
@@ -1316,7 +1328,7 @@
             "notes": "\"Charitable org - verify if sponsorship/advertising\""
           },
           {
-            "_id": "rule-104",
+            "_id": "rule-105",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"ULINE\")",
             "amount_expr": "",
@@ -1328,7 +1340,7 @@
             "notes": "\"Uline packaging supplies\""
           },
           {
-            "_id": "rule-105",
+            "_id": "rule-106",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"GRAINGER\")",
             "amount_expr": "(amount >= 0.0) and (amount <= 500.0)",
@@ -1340,7 +1352,7 @@
             "notes": "\"Grainger small parts under $500\""
           },
           {
-            "_id": "rule-106",
+            "_id": "rule-107",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"GRAINGER\")",
             "amount_expr": "(amount >= 500.0) and (amount <= 2000.0)",
@@ -1352,7 +1364,7 @@
             "notes": "\"Grainger $500-$2000 - verify purpose\""
           },
           {
-            "_id": "rule-107",
+            "_id": "rule-108",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"GRAINGER\")",
             "amount_expr": "(amount >= 2000.0) and (amount <= 5000.0)",
@@ -1364,7 +1376,7 @@
             "notes": "\"Grainger $2000-$5000 - may be equipment\""
           },
           {
-            "_id": "rule-108",
+            "_id": "rule-109",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"GRAINGER\")",
             "amount_expr": "amount >= 5000.0",
@@ -1376,7 +1388,7 @@
             "notes": "\"Large Grainger purchase over $5000 - potential asset\""
           },
           {
-            "_id": "rule-109",
+            "_id": "rule-110",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"HOME DEPOT\")",
             "amount_expr": "(amount >= 0.0) and (amount <= 200.0)",
@@ -1388,7 +1400,7 @@
             "notes": "\"Home Depot small purchases under $200\""
           },
           {
-            "_id": "rule-110",
+            "_id": "rule-111",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"HOME DEPOT\")",
             "amount_expr": "(amount >= 200.0) and (amount <= 1000.0)",
@@ -1400,7 +1412,7 @@
             "notes": "\"Home Depot $200-$1000 - verify purpose\""
           },
           {
-            "_id": "rule-111",
+            "_id": "rule-112",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"HOME DEPOT\")",
             "amount_expr": "(amount >= 1000.0) and (amount <= 5000.0)",
@@ -1412,7 +1424,7 @@
             "notes": "\"Home Depot $1000-$5000 - verify not asset\""
           },
           {
-            "_id": "rule-112",
+            "_id": "rule-113",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"HOME DEPOT\")",
             "amount_expr": "amount >= 5000.0",
@@ -1424,7 +1436,7 @@
             "notes": "\"Large Home Depot purchase over $5000 - potential asset\""
           },
           {
-            "_id": "rule-113",
+            "_id": "rule-114",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"LOWES\")",
             "amount_expr": "(amount >= 0.0) and (amount <= 200.0)",
@@ -1436,7 +1448,7 @@
             "notes": "\"Lowes small purchases under $200\""
           },
           {
-            "_id": "rule-114",
+            "_id": "rule-115",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"LOWES\")",
             "amount_expr": "(amount >= 200.0) and (amount <= 1000.0)",
@@ -1448,7 +1460,7 @@
             "notes": "\"Lowes $200-$1000 - verify purpose\""
           },
           {
-            "_id": "rule-115",
+            "_id": "rule-116",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"LOWES\")",
             "amount_expr": "(amount >= 1000.0) and (amount <= 5000.0)",
@@ -1460,7 +1472,7 @@
             "notes": "\"Lowes $1000-$5000 - verify not asset\""
           },
           {
-            "_id": "rule-116",
+            "_id": "rule-117",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"LOWES\")",
             "amount_expr": "amount >= 5000.0",
@@ -1472,7 +1484,7 @@
             "notes": "\"Large Lowes purchase over $5000 - potential asset\""
           },
           {
-            "_id": "rule-117",
+            "_id": "rule-118",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"AUTOZONE\")",
             "amount_expr": "",
@@ -1484,7 +1496,7 @@
             "notes": "\"AutoZone auto parts\""
           },
           {
-            "_id": "rule-118",
+            "_id": "rule-119",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"ADVANCE AUTO\")",
             "amount_expr": "",
@@ -1496,7 +1508,7 @@
             "notes": "\"Advance Auto Parts\""
           },
           {
-            "_id": "rule-119",
+            "_id": "rule-120",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"OREILLY\")",
             "amount_expr": "",
@@ -1508,7 +1520,7 @@
             "notes": "\"O'Reilly Auto Parts\""
           },
           {
-            "_id": "rule-120",
+            "_id": "rule-121",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"JIFFY LUBE\")",
             "amount_expr": "",
@@ -1520,7 +1532,7 @@
             "notes": "\"Jiffy Lube oil change\""
           },
           {
-            "_id": "rule-121",
+            "_id": "rule-122",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"VALVOLINE\")",
             "amount_expr": "",
@@ -1532,7 +1544,7 @@
             "notes": "\"Valvoline oil change\""
           },
           {
-            "_id": "rule-122",
+            "_id": "rule-123",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"FIRESTONE\")",
             "amount_expr": "",
@@ -1544,7 +1556,7 @@
             "notes": "\"Firestone tires/service\""
           },
           {
-            "_id": "rule-123",
+            "_id": "rule-124",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"PENSKE\")",
             "amount_expr": "",
@@ -1556,7 +1568,7 @@
             "notes": "\"Penske truck rental/lease\""
           },
           {
-            "_id": "rule-124",
+            "_id": "rule-125",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"VERIZON\")",
             "amount_expr": "",
@@ -1568,7 +1580,7 @@
             "notes": "\"Verizon phone/internet\""
           },
           {
-            "_id": "rule-125",
+            "_id": "rule-126",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"T-MOBILE\")",
             "amount_expr": "",
@@ -1580,7 +1592,7 @@
             "notes": "\"T-Mobile phone service\""
           },
           {
-            "_id": "rule-126",
+            "_id": "rule-127",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"AT&T\")",
             "amount_expr": "",
@@ -1592,7 +1604,7 @@
             "notes": "\"AT&T phone/internet\""
           },
           {
-            "_id": "rule-127",
+            "_id": "rule-128",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"COMCAST\")",
             "amount_expr": "",
@@ -1604,7 +1616,7 @@
             "notes": "\"Comcast internet service\""
           },
           {
-            "_id": "rule-128",
+            "_id": "rule-129",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"MAILCHIMP\")",
             "amount_expr": "",
@@ -1616,7 +1628,7 @@
             "notes": "\"Mailchimp email marketing\""
           },
           {
-            "_id": "rule-129",
+            "_id": "rule-130",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"GOOGLE ADS\")",
             "amount_expr": "",
@@ -1628,7 +1640,7 @@
             "notes": "\"Google advertising\""
           },
           {
-            "_id": "rule-130",
+            "_id": "rule-131",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"META*ADS\")",
             "amount_expr": "",
@@ -1640,7 +1652,7 @@
             "notes": "\"Meta/Facebook advertising\""
           },
           {
-            "_id": "rule-131",
+            "_id": "rule-132",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"FACEBOOK\")",
             "amount_expr": "",
@@ -1652,7 +1664,7 @@
             "notes": "\"Facebook advertising\""
           },
           {
-            "_id": "rule-132",
+            "_id": "rule-133",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"GREATER PHILA HISPANIC\")",
             "amount_expr": "",
@@ -1664,7 +1676,7 @@
             "notes": "\"Hispanic Chamber sponsorship\""
           },
           {
-            "_id": "rule-133",
+            "_id": "rule-134",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"INDEED\")",
             "amount_expr": "",
@@ -1676,7 +1688,7 @@
             "notes": "\"Indeed job posting\""
           },
           {
-            "_id": "rule-134",
+            "_id": "rule-135",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"LINKEDIN RECRUITER\")",
             "amount_expr": "",
@@ -1688,7 +1700,7 @@
             "notes": "\"LinkedIn recruiting\""
           },
           {
-            "_id": "rule-135",
+            "_id": "rule-136",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"EZPASS\")",
             "amount_expr": "",
@@ -1700,7 +1712,7 @@
             "notes": "\"EZPass tolls\""
           },
           {
-            "_id": "rule-136",
+            "_id": "rule-137",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"E-ZPASS\")",
             "amount_expr": "",
@@ -1712,7 +1724,7 @@
             "notes": "\"E-ZPass tolls\""
           },
           {
-            "_id": "rule-137",
+            "_id": "rule-138",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"TOLL\")",
             "amount_expr": "",
@@ -1724,31 +1736,43 @@
             "notes": "\"Toll charges\""
           },
           {
-            "_id": "rule-138",
+            "_id": "rule-139",
+            "mcc": "\"5942\"",
+            "merchant_expr": "contains(upper(merchant), \"AMAZON\")",
+            "amount_expr": "",
+            "user_team": "",
+            "state_match": "",
+            "gl_account": "\"Chemicals and Detergent\"",
+            "gl_account_name": "\"Chemicals and Detergent\"",
+            "action": "\"AUTO_POST\"",
+            "notes": "\"Amazon chemicals per Bill.com budget\""
+          },
+          {
+            "_id": "rule-140",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"AMAZON\")",
             "amount_expr": "",
             "user_team": "",
-            "state_match": "\"Office\"",
+            "state_match": "",
             "gl_account": "\"5239\"",
             "gl_account_name": "\"Office Expenses\"",
             "action": "\"AUTO_POST\"",
-            "notes": "\"Amazon office supplies\""
+            "notes": "\"Amazon office supplies per budget\""
           },
           {
-            "_id": "rule-139",
+            "_id": "rule-141",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"AMAZON\")",
             "amount_expr": "",
             "user_team": "\"Production\"",
-            "state_match": "\"Break Room and Janitorial Supplies\"",
+            "state_match": "",
             "gl_account": "\"Break Room and Janitorial Supplies\"",
-            "gl_account_name": "\"AUTO_POST\"",
-            "action": "\"Amazon production supplies\"",
-            "notes": "\"\""
+            "gl_account_name": "\"Break Room and Janitorial Supplies\"",
+            "action": "\"AUTO_POST\"",
+            "notes": "\"Amazon production/wash supplies\""
           },
           {
-            "_id": "rule-140",
+            "_id": "rule-142",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"AMAZON\")",
             "amount_expr": "(amount >= 0.0) and (amount <= 100.0)",
@@ -1760,7 +1784,7 @@
             "notes": "\"Amazon under $100 - verify category\""
           },
           {
-            "_id": "rule-141",
+            "_id": "rule-143",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"AMAZON\")",
             "amount_expr": "(amount >= 100.0) and (amount <= 500.0)",
@@ -1772,7 +1796,7 @@
             "notes": "\"Amazon $100-$500 - needs classification\""
           },
           {
-            "_id": "rule-142",
+            "_id": "rule-144",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"AMAZON\")",
             "amount_expr": "(amount >= 500.0) and (amount <= 5000.0)",
@@ -1784,7 +1808,7 @@
             "notes": "\"Amazon $500-$5000 - verify not asset\""
           },
           {
-            "_id": "rule-143",
+            "_id": "rule-145",
             "mcc": "",
             "merchant_expr": "contains(upper(merchant), \"AMAZON\")",
             "amount_expr": "amount >= 5000.0",
@@ -1796,7 +1820,7 @@
             "notes": "\"Large Amazon purchase over $5000 - potential asset\""
           },
           {
-            "_id": "rule-144",
+            "_id": "rule-146",
             "mcc": "",
             "merchant_expr": "",
             "amount_expr": "amount >= 5000.0",
