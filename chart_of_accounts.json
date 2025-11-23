@@ -549,5 +549,26 @@
     ],
     "account_naming": "Many COGS accounts now use descriptive names without account numbers. The full ERPNext account name is '{account_name} - {company_suffix}'",
     "overhead_vs_cogs": "Pay attention to category - overhead accounts are indirect expenses, COGS accounts are direct costs of production/delivery"
+  },
+  "classification_philosophy": {
+    "core_principles": {
+      "consistency": "If an expense could reasonably fit into multiple accounts, pick one and stick with it. An expense in 'Account A' in January should not be in 'Account B' in February.",
+      "materiality": "Don't over-allocate small amounts. A $40 expense split 50/50 creates more error risk than value. If Gabriel's rental car is usually Travel, keep it 100% Travel even if he did some delivery work.",
+      "what_it_is_vs_what_its_for": "Classification depends on BOTH what the expense IS and what it's FOR. A rental car for a Boston site visit = Travel (overhead). A rental car to cover delivery routes = Vehicle Lease (COGS). Same item, different purpose, different account."
+    },
+    "top_level_decision": {
+      "question": "Is this Cost of Goods Sold (COGS), Overhead, or a Balance Sheet item?",
+      "cogs": "Direct costs of picking up, laundering, and delivering product. Mostly variable costs that scale with laundry volume. Examples: detergents, plant utilities, driver wages, delivery vehicle fuel.",
+      "overhead": "Sales, general, and administrative expenses for running the company. Often fixed costs. Examples: accounting staff, office rent, business insurance, executive travel.",
+      "balance_sheet": "Assets with enduring value (equipment, vehicles, real estate) or liabilities (loans, payables). Assets must be material - we expense items under $5,000."
+    },
+    "common_judgment_calls": {
+      "computers": "A $550 laptop is expensed (not material). A $45,000 company-wide computer order would be capitalized.",
+      "tools_and_furniture": "Individual $150 tools or $500 desks are expensed. Until asset tracking improves, we expense rather than capitalize small durable goods.",
+      "maintenance_vs_improvements": "One-off Home Depot trips for bolts = Maintenance expense. Safety railings affixed to building = Tenant Improvements (asset).",
+      "gas_station_purchases": "MCC 5541 = Gas, not Maintenance. Even if Bill.com budget says 'Maintenance', override based on MCC."
+    },
+    "capitalization_threshold": 5000,
+    "mcc_priority": "MCC codes from payment networks are MORE RELIABLE than user-assigned Bill.com budgets. Always prioritize MCC when available."
   }
 }

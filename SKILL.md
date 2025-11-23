@@ -204,7 +204,10 @@ The rules are stored in `classification_rules.jdm.json` (GoRules JDM format) and
 
 For transactions that don't match any DMN rule, use LLM classification:
 
-1. Load the narrative expense classification rules from `narrative_rules.md` (located in the same directory as this skill file)
+1. Load the chart of accounts and classification philosophy from `chart_of_accounts.json` (located in the same directory as this skill file). This includes:
+   - All account definitions with descriptions
+   - MCC code mappings
+   - Classification philosophy (consistency, materiality, COGS vs overhead)
 2. Read the ERPNext Chart of Accounts using Frappe MCP:
    ```
    list_documents(
@@ -576,7 +579,7 @@ Sync complete!
 - **classify_transaction.py**: Python classifier script using ZEN engine
 - **convert_dmn_to_jdm.py**: Converts CSV rules to JDM format
 - **journal_entry_template.py**: Standardized Journal Entry template for ERPNext
-- **narrative_rules.md**: Narrative expense classification policy with MCC reference
+- **chart_of_accounts.json**: Account definitions, MCC mappings, and classification philosophy
 - **requirements.txt**: Python dependencies
 - **.venv/**: Python virtual environment with zen-engine
 
@@ -603,8 +606,8 @@ Sync complete!
 ## Customization
 
 Users can customize classification by:
-1. **Editing dmn_rules.csv** - Add/modify deterministic rules
-2. **Updating narrative_rules.md** - Refine policy guidance for LLM
+1. **Editing dmn_rules.csv** - Add/modify deterministic rules (run convert_dmn_to_jdm.py after changes)
+2. **Updating chart_of_accounts.json** - Refine account descriptions and classification philosophy
 3. **Adjusting confidence thresholds** - Change when to auto-post vs. review
 
 The skill will automatically pick up changes to these files on next run.
