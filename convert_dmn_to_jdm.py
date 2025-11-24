@@ -17,16 +17,29 @@ def wildcard_to_zen_expression(pattern: str, field: str = "$") -> str:
     if not pattern:
         return ""
 
-    # Remove leading/trailing wildcards and convert to contains check
-    pattern_clean = pattern.strip("*")
+    # Check for wildcards in the pattern
+    has_leading = pattern.startswith("*")
+    has_trailing = pattern.endswith("*")
 
-    if pattern.startswith("*") and pattern.endswith("*"):
+    # Remove all asterisks from the pattern
+    pattern_clean = pattern.replace("*", "")
+
+    if not pattern_clean:
+        return ""
+
+    # If pattern has wildcards in the middle (multiple segments), use contains for each
+    if "*" in pattern.strip("*"):
+        # Pattern like *ENTERPRISE*DRU* -> check for both parts
+        parts = [p.upper() for p in pattern.strip("*").split("*") if p]
+        conditions = [f'contains(upper({field}), "{part}")' for part in parts]
+        return " and ".join(conditions)
+    elif has_leading and has_trailing:
         # *pattern* -> contains
         return f'contains(upper({field}), "{pattern_clean.upper()}")'
-    elif pattern.startswith("*"):
+    elif has_leading:
         # *pattern -> ends with
         return f'endsWith(upper({field}), "{pattern_clean.upper()}")'
-    elif pattern.endswith("*"):
+    elif has_trailing:
         # pattern* -> starts with
         return f'startsWith(upper({field}), "{pattern_clean.upper()}")'
     else:
@@ -101,12 +114,35 @@ def convert_dmn_to_jdm(csv_path: str, output_path: str) -> dict:
             else:
                 rule['amount_expr'] = ''
 
-            # User team
+            # User team (support wildcards like merchant patterns)
             user_team = (row.get('user_team') or '').strip()
             if user_team:
-                rule['user_team'] = f'"{user_team}"'
+                if '*' in user_team:
+                    # Wildcard pattern - use expression
+                    rule['user_team_expr'] = wildcard_to_zen_expression(user_team, 'user_team')
+                    rule['user_team'] = ''
+                else:
+                    # Exact match
+                    rule['user_team'] = f'"{user_team}"'
+                    rule['user_team_expr'] = ''
             else:
                 rule['user_team'] = ''
+                rule['user_team_expr'] = ''
+
+            # User email (support wildcards like merchant patterns)
+            user_email = (row.get('user_email') or '').strip()
+            if user_email:
+                if '*' in user_email:
+                    # Wildcard pattern - use expression
+                    rule['user_email_expr'] = wildcard_to_zen_expression(user_email, 'user_email')
+                    rule['user_email'] = ''
+                else:
+                    # Exact match
+                    rule['user_email'] = f'"{user_email}"'
+                    rule['user_email_expr'] = ''
+            else:
+                rule['user_email'] = ''
+                rule['user_email_expr'] = ''
 
             # State match
             state_match = (row.get('state_match') or '').strip()
@@ -156,6 +192,9 @@ def convert_dmn_to_jdm(csv_path: str, output_path: str) -> dict:
                         {"id": "merchant_expr", "name": "Merchant Match", "field": ""},  # Expression mode
                         {"id": "amount_expr", "name": "Amount Range", "field": ""},  # Expression mode
                         {"id": "user_team", "name": "User Team", "field": "user_team"},
+                        {"id": "user_team_expr", "name": "User Team Match", "field": ""},  # Expression mode for wildcards
+                        {"id": "user_email", "name": "User Email", "field": "user_email"},
+                        {"id": "user_email_expr", "name": "User Email Match", "field": ""},  # Expression mode for wildcards
                         {"id": "state_match", "name": "State Match", "field": "state_match"}
                     ],
                     "outputs": [

@@ -171,6 +171,7 @@ def classify_transaction(
         'merchant': (transaction.get('rawMerchantName') or transaction.get('merchantName') or transaction.get('merchant', '')).upper(),
         'amount': float(transaction.get('amount', 0)),
         'user_team': employee.get('team') or employee.get('department', ''),
+        'user_email': transaction.get('userEmail', ''),
         'state_match': transaction.get('state_match', ''),
     }
 

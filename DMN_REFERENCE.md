@@ -243,7 +243,7 @@ Common MCCs:
 ## Getting Help
 
 If you're unsure about a classification:
-1. Check the narrative_rules.md for policy guidance
+1. Check the chart_of_accounts.json for policy guidance
 2. Look at historical transactions for similar purchases
 3. Use REVIEW action to validate before auto-posting
 4. Ask the accounting team for guidance on edge cases

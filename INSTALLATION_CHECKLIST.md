@@ -62,7 +62,7 @@ Select one:
 
 - [ ] Copy `SKILL.md` to installation directory
 - [ ] Copy `dmn_rules.csv` to installation directory
-- [ ] Copy `narrative_rules.md` to installation directory
+- [ ] Copy `chart_of_accounts.json` to installation directory
 - [ ] Copy `README.md` to installation directory (optional, for reference)
 - [ ] Copy `DMN_REFERENCE.md` to installation directory (optional, for reference)
 - [ ] Copy `QUICKSTART.md` to installation directory (optional, for reference)
@@ -71,7 +71,7 @@ Select one:
 **Required files** (minimum):
 - SKILL.md
 - dmn_rules.csv
-- narrative_rules.md
+- chart_of_accounts.json
 
 **Optional files** (recommended for reference):
 - README.md
@@ -198,11 +198,11 @@ If comfortable:
 - [ ] Adjust amount thresholds if needed
 - [ ] Save changes
 
-### 12. Review Narrative Rules
+### 12. Review Classification Philosophy
 
-- [ ] Open `narrative_rules.md`
-- [ ] Verify expense policy is current
-- [ ] Add any missing account descriptions
+- [ ] Open `chart_of_accounts.json`
+- [ ] Verify expense policy is current in the `classification_philosophy` section
+- [ ] Add any missing account descriptions in the `accounts` section
 - [ ] Save changes
 
 ### 13. Document Custom Rules

@@ -21,7 +21,7 @@ cd ~/.config/claude/skills/billcom-erpnext-sync
 # Copy the 5 skill files here:
 # - SKILL.md
 # - dmn_rules.csv
-# - narrative_rules.md
+# - chart_of_accounts.json
 # - README.md
 # - DMN_REFERENCE.md
 ```
@@ -168,7 +168,7 @@ Found 23 transactions totaling $3,456.78
 ### Quick Reference
 - **README.md** - Full documentation
 - **DMN_REFERENCE.md** - How to create rules
-- **narrative_rules.md** - Expense policy guidance
+- **chart_of_accounts.json** - Account definitions & expense policy guidance
 - **SKILL.md** - Technical details (for Claude)
 
 ### Getting Support

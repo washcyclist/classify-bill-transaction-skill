@@ -32,11 +32,11 @@ A complete Claude skill for automating credit card transaction classification an
      - Telecom (Verizon, T-Mobile, Comcast)
      - Marketing/HR tools
 
-3. **narrative_rules.md** (16 KB)
-   - Your complete expense classification policy
-   - Cost of Sales vs. Overhead guidance
-   - Balance sheet account rules
-   - Account-specific descriptions
+3. **chart_of_accounts.json** (40 KB)
+   - Complete expense classification policy
+   - Account definitions with descriptions
+   - MCC code mappings
+   - Classification philosophy
    - Context for LLM classification
 
 ### Documentation Files
@@ -252,7 +252,7 @@ Remark: [Merchant] - [Date]
 billcom-erpnext-sync/
 ├── SKILL.md                 # Main skill (Claude reads this)
 ├── dmn_rules.csv           # Classification rules (user edits)
-├── narrative_rules.md      # Policy guidance (user edits)
+├── chart_of_accounts.json  # Account definitions & policy (user edits)
 ├── README.md               # Full documentation
 ├── QUICKSTART.md           # Getting started guide
 ├── DMN_REFERENCE.md        # Rule syntax reference

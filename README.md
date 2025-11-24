@@ -32,7 +32,7 @@ Copy these files to your Claude skills directory:
 ~/.config/claude/skills/billcom-erpnext-sync/
 ├── SKILL.md              (main skill instructions)
 ├── dmn_rules.csv         (classification rules - editable)
-├── narrative_rules.md    (expense policy guidance)
+├── chart_of_accounts.json (account definitions & classification philosophy)
 └── README.md             (this file)
 ```
 
@@ -42,7 +42,7 @@ OR for centralized skills:
 /mnt/skills/user/billcom-erpnext-sync/
 ├── SKILL.md
 ├── dmn_rules.csv
-├── narrative_rules.md
+├── chart_of_accounts.json
 └── README.md
 ```
 
@@ -95,9 +95,27 @@ Edit `dmn_rules.csv` to customize classification rules. The file has these colum
 *Shell*,5541,,,,Admin,,,5800,Travel,AUTO_POST,Gas for admin travel
 ```
 
-### Narrative Rules
+### Classification Philosophy
 
-The `narrative_rules.md` file contains your expense classification policy. Claude uses this for non-DMN classifications. Update this file to refine AI classification behavior.
+The `chart_of_accounts.json` file contains your expense classification policy and account definitions. Claude uses this for non-DMN classifications. Update this file to refine AI classification behavior.
+
+### Account Format: COGS vs Overhead
+
+The skill handles two different account formats:
+
+**COGS Accounts** (Cost of Goods Sold):
+- Use **account names only** (no numbers)
+- Examples: "Gas and Tolls", "Vehicle Lease and Mileage", "Routine Maintenance on Trucks"
+- Classifier returns: `"gl_account": "Gas and Tolls"`
+- ERPNext format: `"Gas and Tolls - WCLI"` or `"Gas and Tolls - WCLC"`
+
+**Overhead Accounts**:
+- Use **account numbers** (4-digit codes)
+- Examples: "5216" (Travel Expenses), "5400" (Office Expenses), "5900" (Web Services)
+- Classifier returns: `"gl_account": "5216"`
+- ERPNext format: `"5216 - Travel Expenses - WCLI"` or `"5216 - Travel Expenses - WCLC"`
+
+The `journal_entry_template.py` automatically resolves both formats to the correct ERPNext account name based on the company (WCLI or WCLC).
 
 ## Usage
 
@@ -224,7 +242,7 @@ If out of balance:
 
 ### Classification Quality
 - If many transactions go to REVIEW, add more DMN rules
-- If LLM classifications are consistently wrong, update narrative_rules.md
+- If LLM classifications are consistently wrong, update chart_of_accounts.json
 - Review rejected transactions to identify policy gaps
 
 ### Reconciliation

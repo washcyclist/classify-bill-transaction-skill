@@ -140,8 +140,8 @@ python3 -m venv .venv
 **Response**:
 ```json
 {
-  "gl_account": "5110",
-  "gl_account_name": "Gas Tolls Fines",
+  "gl_account": "Gas and Tolls",
+  "gl_account_name": "Gas and Tolls",
   "action": "AUTO_POST",
   "confidence": "HIGH",
   "matched_by": "mcc",
@@ -149,12 +149,14 @@ python3 -m venv .venv
   "has_discrepancy": true,
   "discrepancy": {
     "billcom_budget": "Maintenance - Trucks",
-    "billcom_account": "5200",
-    "our_account": "5110",
-    "reason": "Bill.com budget 'Maintenance - Trucks' suggests account 5200, but MCC indicates 5110"
+    "billcom_account": "Routine Maintenance on Trucks",
+    "our_account": "Gas and Tolls",
+    "reason": "Bill.com budget 'Maintenance - Trucks' suggests account Routine Maintenance on Trucks, but MCC indicates Gas and Tolls"
   }
 }
 ```
+
+**Note**: COGS accounts (like "Gas and Tolls") return account names, while overhead accounts (like "5216") return account numbers. The journal entry template handles both formats.
 
 **Batch Classification** (more efficient for multiple transactions):
 ```bash
@@ -220,7 +222,7 @@ For transactions that don't match any DMN rule, use LLM classification:
    - Transaction details (merchant, amount, user, location)
    - Employee details (team, role, home location)
    - Travel status (LOCAL vs OUT_OF_STATE)
-   - Narrative rules
+   - Classification philosophy from chart_of_accounts.json
    - Account list with descriptions
 
 4. Ask Claude to:
