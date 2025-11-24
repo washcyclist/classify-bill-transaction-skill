@@ -5,6 +5,13 @@ Runs all transactions through DMN, then LLM fallback for unclassified.
 """
 
 import json
+import sys
+from pathlib import Path
+
+# Add scripts directory to path for imports
+scripts_dir = Path(__file__).parent.parent / "scripts"
+sys.path.insert(0, str(scripts_dir))
+
 from classify_transaction import classify_transaction, extract_account_from_budget
 
 # Transaction data from Bill.com API (Nov 1-15, 2025)
@@ -75,7 +82,8 @@ def get_team_for_user(email):
     return USER_TEAMS.get(email, "")
 
 def main():
-    jdm_path = "classification_rules.jdm.json"
+    config_dir = Path(__file__).parent.parent / "config"
+    jdm_path = str(config_dir / "classification_rules.jdm.json")
 
     results = []
     auto_post = 0

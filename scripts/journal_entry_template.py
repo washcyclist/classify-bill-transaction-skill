@@ -7,6 +7,7 @@ from classified Bill.com transactions. It ensures consistent output format
 for the LLM when posting to ERPNext.
 
 Usage:
+    # As a module
     from journal_entry_template import create_journal_entry
 
     entry = create_journal_entry(
@@ -20,11 +21,19 @@ Usage:
         expense_account="5216",
         expense_account_name="Travel Expenses"
     )
+
+    # As a CLI tool
+    .venv/bin/python3 journal_entry_template.py \\
+        --transaction '{"id": "...", "merchantName": "DoorDash", ...}' \\
+        --classification '{"gl_account": "5216", "gl_account_name": "Travel Expenses"}' \\
+        --company WCLI
 """
 
+import argparse
 import json
+import sys
 from dataclasses import dataclass, asdict
-from typing import Optional
+from typing import Optional, List
 from datetime import date
 
 
@@ -417,36 +426,126 @@ If no results:
 """
 
 
+def create_batch_entries(items: List[dict]) -> List[dict]:
+    """
+    Create multiple journal entries from a batch of transactions and classifications.
+
+    Args:
+        items: List of dicts, each containing:
+            - transaction: Bill.com transaction dict
+            - classification: Classification result dict
+            - company: Company code ("WCLI" or "WCLC")
+
+    Returns:
+        List of journal entry dicts ready for Frappe API
+
+    Example:
+        items = [
+            {
+                "transaction": {...},
+                "classification": {...},
+                "company": "WCLI"
+            },
+            ...
+        ]
+        entries = create_batch_entries(items)
+    """
+    results = []
+    for item in items:
+        try:
+            entry = create_journal_entry_from_classification(
+                transaction=item["transaction"],
+                classification=item["classification"],
+                company=item["company"]
+            )
+            results.append(entry)
+        except Exception as e:
+            # Include error in output for debugging
+            results.append({
+                "error": str(e),
+                "transaction_id": item.get("transaction", {}).get("id", "unknown")
+            })
+    return results
+
+
+def main():
+    """CLI entry point for creating journal entries."""
+    parser = argparse.ArgumentParser(
+        description='Generate ERPNext Journal Entries from Bill.com transactions',
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+  # Single transaction
+  %(prog)s --transaction '{"id":"abc","merchantName":"DoorDash",...}' \\
+           --classification '{"gl_account":"5216","gl_account_name":"Travel Expenses"}' \\
+           --company WCLI
+
+  # Batch processing
+  %(prog)s --batch '[{"transaction":{...},"classification":{...},"company":"WCLI"},...]'
+        """
+    )
+
+    parser.add_argument(
+        '--transaction',
+        type=str,
+        help='Bill.com transaction JSON (from list_transactions_enriched)'
+    )
+    parser.add_argument(
+        '--classification',
+        type=str,
+        help='Classification result JSON (from classify_transaction.py)'
+    )
+    parser.add_argument(
+        '--company',
+        type=str,
+        choices=['WCLI', 'WCLC'],
+        help='Company code (required for single transaction mode)'
+    )
+    parser.add_argument(
+        '--batch',
+        type=str,
+        help='Batch JSON array of {transaction, classification, company} objects'
+    )
+
+    args = parser.parse_args()
+
+    try:
+        if args.batch:
+            # Batch mode
+            items = json.loads(args.batch)
+            if not isinstance(items, list):
+                print(json.dumps({"error": "Batch input must be a JSON array"}), file=sys.stderr)
+                sys.exit(1)
+
+            entries = create_batch_entries(items)
+            print(json.dumps(entries, indent=2))
+
+        elif args.transaction and args.classification and args.company:
+            # Single transaction mode
+            transaction = json.loads(args.transaction)
+            classification = json.loads(args.classification)
+
+            entry = create_journal_entry_from_classification(
+                transaction=transaction,
+                classification=classification,
+                company=args.company
+            )
+            print(json.dumps(entry, indent=2))
+
+        else:
+            parser.print_help()
+            sys.exit(1)
+
+    except json.JSONDecodeError as e:
+        print(json.dumps({"error": f"Invalid JSON input: {e}"}), file=sys.stderr)
+        sys.exit(1)
+    except ValueError as e:
+        print(json.dumps({"error": str(e)}), file=sys.stderr)
+        sys.exit(1)
+    except Exception as e:
+        print(json.dumps({"error": f"Unexpected error: {e}"}), file=sys.stderr)
+        sys.exit(1)
+
+
 if __name__ == "__main__":
-    # Example usage
-    example_entry = create_journal_entry(
-        company="WCLI",
-        posting_date="2025-10-02",
-        transaction_id="VHJhbnNhY3Rpb246OWUzY2UxMTEtYzU3MS00ZTZhLTg5YjQtMmYxZWU1MGNkZmFl",
-        transaction_date="2025-10-01",
-        merchant_name="DoorDash",
-        user_email="john@example.com",
-        amount=52.91,
-        expense_account="5216",
-        expense_account_name="Travel Expenses"
-    )
-
-    print("Example Journal Entry:")
-    print(json.dumps(example_entry, indent=2))
-
-    # Example refund
-    refund_entry = create_journal_entry(
-        company="WCLI",
-        posting_date="2025-10-05",
-        transaction_id="VHJhbnNhY3Rpb246YWJjMTIz",
-        transaction_date="2025-10-04",
-        merchant_name="Amazon",
-        user_email="jane@example.com",
-        amount=25.00,
-        expense_account="5239",
-        expense_account_name="Office Expenses",
-        is_credit=True
-    )
-
-    print("\nExample Refund Entry:")
-    print(json.dumps(refund_entry, indent=2))
+    main()

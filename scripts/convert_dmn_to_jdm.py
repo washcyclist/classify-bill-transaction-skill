@@ -225,7 +225,8 @@ def convert_dmn_to_jdm(csv_path: str, output_path: str) -> dict:
 
 if __name__ == "__main__":
     script_dir = Path(__file__).parent
-    csv_path = script_dir / "dmn_rules.csv"
-    output_path = script_dir / "classification_rules.jdm.json"
+    config_dir = script_dir.parent / "config"
+    csv_path = config_dir / "dmn_rules.csv"
+    output_path = config_dir / "classification_rules.jdm.json"
 
     convert_dmn_to_jdm(str(csv_path), str(output_path))

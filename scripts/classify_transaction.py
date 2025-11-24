@@ -290,7 +290,8 @@ def main():
 
     # Determine JDM path
     script_dir = Path(__file__).parent
-    jdm_path = args.jdm or str(script_dir / 'classification_rules.jdm.json')
+    config_dir = script_dir.parent / 'config'
+    jdm_path = args.jdm or str(config_dir / 'classification_rules.jdm.json')
 
     if args.batch:
         # Batch mode

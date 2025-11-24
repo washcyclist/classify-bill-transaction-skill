@@ -131,7 +131,7 @@ python3 -m venv .venv
 
 **Single Transaction Classification**:
 ```bash
-.venv/bin/python3 classify_transaction.py \
+.venv/bin/python3 scripts/classify_transaction.py \
   --transaction '{"merchantCategoryCode": "5541", "rawMerchantName": "SUNOCO", "amount": 60, "state_match": "LOCAL"}' \
   --employee '{"team": "Delivery"}' \
   --billcom_budget "Maintenance - Trucks"
@@ -156,11 +156,9 @@ python3 -m venv .venv
 }
 ```
 
-**Note**: COGS accounts (like "Gas and Tolls") return account names, while overhead accounts (like "5216") return account numbers. The journal entry template handles both formats.
-
 **Batch Classification** (more efficient for multiple transactions):
 ```bash
-.venv/bin/python3 classify_transaction.py --batch '[
+.venv/bin/python3 scripts/classify_transaction.py --batch '[
   {"transaction": {...}, "employee": {...}, "billcom_budget": "..."},
   {"transaction": {...}, "employee": {...}, "billcom_budget": "..."}
 ]'
@@ -180,7 +178,7 @@ Before calling the classifier, determine if the transaction is LOCAL or OUT_OF_S
 
 #### 5C: Classification Rules (JDM Format)
 
-The rules are stored in `classification_rules.jdm.json` (GoRules JDM format) and executed by the ZEN engine.
+The rules are stored in `config/classification_rules.jdm.json` (GoRules JDM format) and executed by the ZEN engine.
 
 **Rule Priority** (first match wins):
 1. **MCC-based rules** - Highest priority, most reliable
@@ -188,8 +186,8 @@ The rules are stored in `classification_rules.jdm.json` (GoRules JDM format) and
 3. **Context rules** - Consider employee team, location, amount
 
 **To modify rules**:
-1. Edit `dmn_rules.csv` (human-readable format)
-2. Run `python3 convert_dmn_to_jdm.py` to regenerate the JDM file
+1. Edit `config/dmn_rules.csv` (human-readable format)
+2. Run `python3 scripts/convert_dmn_to_jdm.py` to regenerate the JDM file
 3. Test with sample transactions
 
 **DMN CSV columns**:
@@ -206,7 +204,7 @@ The rules are stored in `classification_rules.jdm.json` (GoRules JDM format) and
 
 For transactions that don't match any DMN rule, use LLM classification:
 
-1. Load the chart of accounts and classification philosophy from `chart_of_accounts.json` (located in the same directory as this skill file). This includes:
+1. Load the chart of accounts and classification philosophy from `config/chart_of_accounts.json`. This includes:
    - All account definitions with descriptions
    - MCC code mappings
    - Classification philosophy (consistency, materiality, COGS vs overhead)
@@ -289,53 +287,11 @@ After classifying each transaction, compare our classification to the Bill.com b
 
 Group transactions by confidence/action level and present in chat:
 
-#### ✅ AUTO_POST - High Confidence (DMN matches and LLM >90%)
-```
-Total: $X,XXX.XX across N transactions
+**✅ AUTO_POST - High Confidence**: List each transaction with date, merchant, amount, user, MCC code, classification, and note any Bill.com discrepancies that were auto-corrected.
 
-1. [Date] - [Merchant] - $XXX.XX
-   User: [Email] | MCC: [Code]
-   Classification: [Account Number] - [Account Name]
-   Rule: [DMN rule notes or "LLM classification"]
-   ⚡ OVERRIDE: Bill.com said "[Budget Name]" - corrected based on MCC [if discrepancy]
+**⚠️ REVIEW - Medium/Low Confidence**: For each transaction, show suggested classification with confidence level, explain any Bill.com discrepancies, provide 2-3 alternatives, and ask user to confirm or specify correct account.
 
-2. [...]
-```
-
-#### ⚠️ REVIEW - Medium/Low Confidence
-```
-Total: $X,XXX.XX across N transactions
-
-1. [Date] - [Merchant] - $XXX.XX
-   User: [Email] | MCC: [Code] | Bill.com: [Budget Name]
-
-   Suggested: [Account Number] - [Account Name]
-   Confidence: [XX%]
-
-   ⚡ DISCREPANCY: Bill.com classified as "[Budget]" but [reason for our classification]
-
-   Alternatives:
-   - [Account Number] - [Account Name]: [Reason]
-   - [Account Number] - [Account Name]: [Reason]
-
-   Please confirm or specify correct account.
-
-2. [...]
-```
-
-#### 🚩 REJECTED - Requires Manual Handling
-```
-Total: $X,XXX.XX across N transactions
-
-1. [Date] - [Merchant] - $XXX.XX
-   User: [Email] | Budget: [Budget Name]
-
-   Reason: [Why rejected - e.g., "Potential asset", "Multi-entity mismatch"]
-
-   This transaction should be handled manually.
-
-2. [...]
-```
+**🚩 REJECTED - Manual Handling**: List transactions that need manual handling (e.g., potential assets, multi-entity mismatches) with clear reasons.
 
 **Summary Statistics**:
 ```
@@ -397,82 +353,46 @@ Where `{transaction_id}` is the Bill.com base64 transaction ID (the `id` field f
 
 #### 8B: Using the Template (Recommended)
 
-Use `journal_entry_template.py` to generate consistent Journal Entry format:
+Use `journal_entry_template.py` CLI to generate consistent Journal Entry format with **guaranteed correctness**:
 
-```python
-from journal_entry_template import create_journal_entry, create_journal_entry_from_classification
-
-# From classified transaction
-entry = create_journal_entry_from_classification(
-    transaction=billcom_transaction,
-    classification=classification_result,
-    company="WCLI"
-)
-
-# Or manually
-entry = create_journal_entry(
-    company="WCLI",
-    posting_date="2025-10-02",
-    transaction_id="VHJhbnNhY3Rpb246OWUz...",
-    transaction_date="2025-10-01",
-    merchant_name="DoorDash",
-    user_email="john@example.com",
-    amount=52.91,
-    expense_account="5216",
-    expense_account_name="Travel Expenses"
-)
+**Single Transaction**:
+```bash
+.venv/bin/python3 scripts/journal_entry_template.py \
+  --transaction '{"id":"...", "merchantName":"DoorDash", "amount":52.91, ...}' \
+  --classification '{"gl_account":"5216", "gl_account_name":"Travel Expenses"}' \
+  --company WCLI
 ```
+
+**Batch Processing** (more efficient for multiple transactions):
+```bash
+.venv/bin/python3 scripts/journal_entry_template.py --batch '[
+  {
+    "transaction": {"id":"txn1", "merchantName":"Sunoco", ...},
+    "classification": {"gl_account":"Gas and Tolls", ...},
+    "company": "WCLI"
+  },
+  {
+    "transaction": {"id":"txn2", "merchantName":"Amazon", ...},
+    "classification": {"gl_account":"5239", ...},
+    "company": "WCLI"
+  }
+]'
+```
+
+**Benefits**: Guarantees consistent account formatting (COGS vs overhead), automatic credit/refund reversal, correct company suffixes, and zero formatting errors.
 
 #### 8C: Frappe API Call
 
-Use Frappe MCP `create_document` tool with the generated entry:
+Take the JSON output from `journal_entry_template.py` and pass it directly to Frappe MCP:
 
 ```
 create_document(
     doctype="Journal Entry",
-    values={
-        "voucher_type": "Journal Entry",
-        "company": "Wash Cycle Laundry Inc.",
-        "posting_date": "2025-10-02",
-        "cheque_no": "[Bill.com base64 transaction ID]",
-        "cheque_date": "2025-10-01",
-        "user_remark": "Merchant: DoorDash | User: john@example.com",
-        "accounts": [
-            {
-                "account": "2151 - Divvy Credit Card - WCLI",
-                "debit_in_account_currency": 0,
-                "credit_in_account_currency": 52.91
-            },
-            {
-                "account": "5216 - Travel Expenses - WCLI",
-                "debit_in_account_currency": 52.91,
-                "credit_in_account_currency": 0
-            }
-        ]
-    }
+    values=<JSON from template CLI>
 )
 ```
 
-**Critical Fields**:
-- `voucher_type`: Always `"Journal Entry"` for credit card expenses
-- `posting_date`: Use `occurredTime` date from Bill.com (when transaction cleared)
-- `cheque_no`: Bill.com base64 transaction ID (for duplicate detection)
-- `cheque_date`: Transaction authorization date
-- `user_remark`: Format as `"Merchant: {name} | User: {email}"`
-- `company`: Must match the company selected in Step 1
-
-**Account Selection**:
-- **Row 1 - Credit Card Liability (CREDIT)**:
-  - WCLI: `"2151 - Divvy Credit Card - WCLI"`
-  - WCLC: `"2151 - Divvy Credit Card - WCLC"`
-- **Row 2 - Expense Account (DEBIT)**:
-  - Format: `"{account_number} - {account_name} - {suffix}"`
-  - Example: `"5216 - Travel Expenses - WCLI"`
-
-**Refunds/Credits**:
-For refund transactions (`isCredit: true`), the template automatically reverses:
-- Debit the credit card (reduces liability)
-- Credit the expense account (reduces expense)
+**Important**: Use the template output as-is - do not modify the JSON. All formatting (account names, debit/credit positioning, refund reversals) is already correct.
 
 Track successes and failures. Report any errors clearly.
 
@@ -576,12 +496,12 @@ Sync complete!
 ## Files in This Skill
 
 - **SKILL.md** (this file): Main instructions
-- **dmn_rules.csv**: Deterministic classification rules (human-editable CSV)
-- **classification_rules.jdm.json**: Compiled rules in GoRules JDM format (auto-generated)
-- **classify_transaction.py**: Python classifier script using ZEN engine
-- **convert_dmn_to_jdm.py**: Converts CSV rules to JDM format
-- **journal_entry_template.py**: Standardized Journal Entry template for ERPNext
-- **chart_of_accounts.json**: Account definitions, MCC mappings, and classification philosophy
+- **config/dmn_rules.csv**: Deterministic classification rules (human-editable CSV)
+- **config/classification_rules.jdm.json**: Compiled rules in GoRules JDM format (auto-generated)
+- **scripts/classify_transaction.py**: Python classifier script using ZEN engine
+- **scripts/convert_dmn_to_jdm.py**: Converts CSV rules to JDM format
+- **scripts/journal_entry_template.py**: Standardized Journal Entry template for ERPNext
+- **config/chart_of_accounts.json**: Account definitions, MCC mappings, and classification philosophy
 - **requirements.txt**: Python dependencies
 - **.venv/**: Python virtual environment with zen-engine
 
@@ -596,20 +516,8 @@ Sync complete!
 - `create_document`: Create journal entries
 - `get_doctype_schema`: Get account structure (if needed)
 
-## Tips for Success
+## Tips & Customization
 
-1. **Always handle pagination** - Bill.com may split results across multiple pages
-2. **Validate accounts exist** - Check GL account codes before posting
-3. **Use transaction date** - Post with `occurredTime` not current date
-4. **Be consistent** - Same transaction types should always map to same accounts
-5. **Save state** - If interrupted, be able to resume without duplicating work
-6. **Clear reporting** - User should always know what's happening and why
+**Key Reminders**: Always handle Bill.com pagination, use `occurredTime` for posting dates, check for duplicates before creating journal entries.
 
-## Customization
-
-Users can customize classification by:
-1. **Editing dmn_rules.csv** - Add/modify deterministic rules (run convert_dmn_to_jdm.py after changes)
-2. **Updating chart_of_accounts.json** - Refine account descriptions and classification philosophy
-3. **Adjusting confidence thresholds** - Change when to auto-post vs. review
-
-The skill will automatically pick up changes to these files on next run.
+**Customization**: Edit `config/dmn_rules.csv` and run `scripts/convert_dmn_to_jdm.py` to modify classification rules, or update `config/chart_of_accounts.json` to refine account descriptions.
